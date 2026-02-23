@@ -1,0 +1,1799 @@
+= Temario — Curso de TypeScript (20 horas)
+:author: Daniel Rojo Pérez
+:revdate: 2026-02-15
+:revnumber: 1.0
+:toc: left
+:toclevels: 3
+:numbered:
+:sectnums:
+:source-highlighter: rouge
+
+== Módulo 1 — Introducción y contexto (1h)
+=== Historia y adopción de TypeScript
+TypeScript nació en Microsoft como evolución del ecosistema JavaScript para ofrecer comprobación estática de tipos sin romper la compatibilidad con código JS existente. En los últimos años se ha consolidado como estándar en equipos que necesitan escalabilidad, refactorizaciones seguras y mejor tooling (editor/autocompletion, navegación de código, refactors).
+
+=== ¿Qué es TypeScript y por qué usarlo?
+TypeScript es un *superset* de JavaScript que añade anotaciones de tipo y un sistema de tipos estático opcional. No cambia la semántica de JavaScript en tiempo de ejecución: los tipos existen en tiempo de compilación para ayudar a prevenir errores y documentar contratos.
+
+==== Tipado gradual y adopción incremental
+- Puedes empezar por añadir tipos a unos pocos archivos (`.ts`) y mantener el resto en JavaScript (`.js`).
+- Bandera útil: `--allowJs` para proyectos mixtos y `--checkJs` para validar archivos `.js`.
+
+=== Beneficios prácticos (qué notarás día a día)
+- Detección temprana de errores de interfaz y API.
+- Refactorizaciones más seguras y autocompletado preciso en el editor.
+- Mejora en la documentación implícita del código (los tipos explican contratos).
+- Facilita compartir tipos entre backend y frontend (monorepo, paquetes de tipos).
+
+=== Casos de uso típicos
+- Librerías públicas donde los `.d.ts` facilitan adopción.
+- Aplicaciones frontend (React, Vue) para mejorar mantenibilidad.
+- Backend en Node.js con tipado de endpoints y DTOs.
+
+=== Instalación y primer proyecto (rápido y reproducible)
+==== Instalación recomendada (local)
+[source,console]
+----
+npm init -y
+npm install --save-dev typescript
+npx tsc --version
+----
+
+==== Scripts útiles en `package.json`
+[source,json]
+----
+{"scripts": {"build": "tsc -p .", "type-check": "tsc --noEmit", "dev": "vite"}}
+----
+
+=== Primer ejemplo: "Hola Mundo" y flujo básico
+Contexto: ejemplo mínimo de aplicación con función exportada y uso local — útil para mostrar anotaciones, export y ejecución tras compilar.
+[source,ts]
+----
+// src/index.ts
+export function greet(name: string) {
+  return `Hola, ${name}!`;
+}
+
+// uso local
+const saludo = greet('TypeScript');
+console.log(saludo);
+----
+
+Compilar y ejecutar:
+[source,console]
+----
+npx tsc
+node dist/index.js
+----
+
+=== `tsconfig.json` — opciones que importan
+[source,json]
+----
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "strict": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "declaration": false,
+    "baseUrl": ".",
+    "paths": { "@/*": ["src/*"] }
+  },
+  "include": ["src/**/*"]
+}
+----
+- `target`/`module`: controlan la sintaxis JS resultante.
+- `strict`: agrupa comprobaciones útiles (activo desde el inicio).
+- `outDir`/`rootDir`: mantienen la estructura de salida ordenada.
+- `paths` + `baseUrl`: permiten alias y mejor organización del código.
+
+=== Flujo de trabajo recomendado
+- Durante el desarrollo: bundler rápido (Vite/esbuild) + `tsc -w` o `tsc --noEmit` en segundo plano.
+- En CI: ejecutar `npm run type-check` (`tsc --noEmit`) y linting (`eslint`).
+- Para librerías: activar `declaration: true` para generar `.d.ts`.
+
+=== Errores comunes y soluciones rápidas
+==== Import alias no resuelto
+Si `@/utils` falla, revisa `baseUrl`/`paths` y la configuración del bundler (Vite/webpack).
+
+==== Tipos faltantes de dependencias JS
+Instala `@types/paquete` o escribe un `declare module 'paquete'` mínimo.
+
+==== `tsserver` lento
+Excluye carpetas grandes en `tsconfig` y añade `files.exclude` en VSCode.
+
+=== Ejercicios prácticos (para clase o tarea)
+- Inicializa un proyecto con `typescript` como devDependency y añade los scripts `build` y `type-check`.
+- Crea `src/index.ts`, compílalo y ejecútalo.
+- Añade `paths`/`baseUrl` y prueba un alias en un archivo importado.
+
+=== Lecturas y recursos recomendados
+- TypeScript Handbook (oficial) — conceptos y ejemplos.
+- Referencia `tsconfig.json` — para opciones avanzadas.
+
+
+== Módulo 2 — Configuración y toolchain (1h)
+Este módulo cubre las decisiones de configuración que más afectan al día a día: `tsconfig.json` (qué opciones usar y por qué), alias y resolución de módulos, referencias de proyecto (monorepos) y la integración con herramientas modernas (bundlers, `ts-node`, scripts y CI).
+
+=== `tsconfig.json` — opciones esenciales
+==== target / module / lib
+- `target`: controla la versión de JavaScript que generas (p. ej. `ES2019`, `ES2020`). Escoge según el entorno objetivo (Node o navegadores).
+- `module`: `CommonJS` vs `ESNext` afecta cómo se emiten `import`/`export`.
+- `lib`: añade definiciones (DOM, ES2019, ES2020) para que el compilador conozca APIs disponibles.
+
+==== strict flags y control de nulabilidad
+- `strict`: habilita un conjunto de comprobaciones (recomendado desde el inicio).
+- `noImplicitAny`, `strictNullChecks`, `noImplicitReturns` ayudan a evitar bugs comunes.
+
+==== declaration, sourceMap y outDir
+- `declaration`: genera `.d.ts` para publicar librerías.
+- `declarationMap`: mapea tipos publicados con el código fuente (útil para debugging de librerías).
+- `sourceMap`: permite mapear `.js` a `.ts` en depuración.
+- `outDir` / `rootDir`: mantienen la salida organizada.
+
+==== incremental, composite y tsBuildInfoFile
+- `incremental` + `tsBuildInfoFile` aceleran compilaciones sucesivas.
+- `composite: true` es obligatorio en subproyectos que se referencian entre sí.
+
+=== Ejemplo `tsconfig.json` comentado
+[source,json]
+----
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "lib": ["ES2020", "DOM"],
+    "strict": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "baseUrl": ".",
+    "paths": { "@app/*": ["src/*"] },
+    "incremental": true,
+    "tsBuildInfoFile": ".tsbuildinfo"
+  },
+  "include": ["src/**/*"]
+}
+----
+
+==== `tsconfig.json` — explicación campo a campo
+A continuación se detalla qué hace cada campo y por qué suele configurarse de esa forma en proyectos modernos.
+
+- `compilerOptions.target` — especifica la versión de JavaScript salida (p. ej. `ES2018`, `ES2020`, `ESNext`). Elige según el entorno objetivo (navegadores o versión de Node).
+
+- `compilerOptions.module` — controla el sistema de módulos emitido (`CommonJS`, `ESNext`). `ESNext` es la opción habitual con bundlers modernos; `CommonJS` para Node tradicional.
+
+- `compilerOptions.lib` — añade definiciones de entorno (`DOM`, `ES2019`, `DOM.Iterable`) para que el compilador conozca APIs disponibles.
+
+- `compilerOptions.strict` — modo estricto que habilita un conjunto de flags (`noImplicitAny`, `strictNullChecks`, `strictFunctionTypes`, etc.). Recomendado activarlo desde el inicio.
+
+- `compilerOptions.esModuleInterop` y `allowSyntheticDefaultImports` — facilitan la interoperabilidad con módulos CommonJS (import por defecto desde paquetes que exponen `module.exports`).
+
+- `outDir` / `rootDir` — controlan la ubicación de salida (`outDir`) y la raíz de fuentes (`rootDir`) para mantener la estructura de archivos al compilar.
+
+- `declaration` / `declarationMap` — generan `.d.ts` y mapas de declaración; imprescindibles para bibliotecas que publican tipos.
+
+- `sourceMap` — (no mostrado arriba) importante si quieres depurar TS en runtime con sourcemaps habilitados.
+
+- `baseUrl` / `paths` — permiten alias de import (`@app/* → src/*`). Muy útiles en monorepos o para evitar rutas relativas profundas; recuerda sincronizar con tu bundler y test runner.
+
+- `incremental` / `tsBuildInfoFile` — acelera compilaciones sucesivas creando un archivo `.tsbuildinfo`; cacheable en CI para acelerar builds.
+
+- `composite` / `references` — necesarios para `project references` en monorepos; habilitan `tsc -b` y builds parciales.
+
+- `skipLibCheck` — omite comprobación de tipos en archivos `.d.ts` de dependencias; útil temporalmente para migraciones, pero no es solución a largo plazo.
+
+- `allowJs` / `checkJs` — permiten incluir y/o chequear archivos `.js` (muy útil durante migraciones incrementales).
+
+- `resolveJsonModule` / `esModuleInterop` — permiten importar JSON y mejorar compat con paquetes JS.
+
+- `types` / `typeRoots` — controlar qué paquetes de tipos incluir (por ejemplo para limitar `@types/*` visibles al proyecto).
+
+- `noEmit` / `noEmitOnError` — `noEmit` evita emitir artefactos (útil para `tsc --noEmit` en CI); `noEmitOnError` detiene la emisión si hay errores.
+
+---
+
+#### Ejemplo mínimo recomendado para aplicaciones
+[source,json]
+----
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "strict": true,
+    "rootDir": "src",
+    "outDir": "dist",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*"]
+}
+----
+
+> Nota: adapta `target` y `module` según tu entorno de ejecución/bundler. Mantén `strict: true` y usa `skipLibCheck` solo si realmente lo necesitas temporalmente.
+
+
+=== Paths y resolución de módulos (baseUrl / paths)
+- `baseUrl` define la raíz para imports no relativos; `paths` crea alias (`@app/* → src/*`).
+- Importante: estos alias funcionan en compilación/IDE, pero debes sincronizarlos con tu bundler (Vite/webpack) y con herramientas de test (Jest/Vitest) o runtime (`tsconfig-paths` para Node).
+
+[source,ts]
+----
+// Contexto: ejemplo con alias (`paths`) — muestra el archivo origen y el import que lo consume.
+// src/utils/math.ts
+export function sum(a: number, b: number) { return a + b }
+
+// src/main.ts (usa alias @app/* configurado en tsconfig)
+import { sum } from '@app/utils/math';
+console.log(sum(2,3));
+----
+
+=== Project references y monorepos
+- Permiten dividir un repo en paquetes con `composite: true` y `references: [{"path":"../core"}]`.
+- Ventaja: `tsc -b` compila sólo lo necesario y genera `.d.ts` correctamente para cada paquete.
+
+Ejemplo mínimo (paquete `core`) en `packages/core/tsconfig.json`:
+[source,json]
+----
+{ "compilerOptions": { "composite": true, "outDir": "lib" }, "include": ["src"] }
+----
+
+Cómo compilar todo:
+[source,console]
+----
+# en la raíz del monorepo
+npx tsc -b packages/*
+----
+
+=== Integración con herramientas y flujo de trabajo
+==== ts-node / ts-node-dev
+- `ts-node` ejecuta `.ts` directamente (útil en scripts/during dev). `ts-node-dev` añade reinicio automático.
+
+==== Bundlers modernos (esbuild / SWC / Vite)
+- Son extremadamente rápidos para el _bundling_ y la transformación, pero **no hacen type-check**. Siempre combinar con `tsc --noEmit` en CI.
+
+==== Webpack / Rollup
+- Opciones maduras para producción; configurar `ts-loader` o `esbuild-loader` según necesidades.
+
+=== Scripts npm recomendados
+[source,json]
+----
+{"scripts": {
+  "build": "tsc -p .",
+  "dev": "vite",
+  "start:dev": "ts-node-dev --respawn src/index.ts",
+  "type-check": "tsc --noEmit",
+  "watch": "tsc -w"
+}}
+----
+- `type-check` en CI garantiza que el bundle rápido no oculte errores de tipos.
+
+=== Source maps y archivos de declaración para librerías
+- `declarationMap` + `sourceMap` permiten a consumidores de una librería trazar errores al `.ts` original.
+- Si publicas en npm, asegúrate de incluir `types`/`typesVersions` en `package.json` cuando corresponda.
+
+=== Diagnóstico y comandos útiles
+- `npx tsc --showConfig` muestra la configuración efectiva.
+- `npx tsc --traceResolution` ayuda a depurar resolución de módulos.
+- `npx tsc -b --verbose` para ver build graph en project references.
+
+=== Buenas prácticas y antipatterns
+- Activar `strict` desde el inicio y practicar la corrección incremental.
+- Evitar `skipLibCheck` salvo en casos necesarios (oculta problemas en dependencias).
+- No confiar sólo en el bundler para la comprobación de tipos.
+- Evitar `allowJs` en librerías publicadas.
+
+=== Sección práctica (ejercicios)
+- Ejercicio 1: Crear un `tsconfig.json` con `baseUrl`/`paths` y verificar resolución en VSCode y Vite.
+- Ejercicio 2: Montar un mini-monorepo con `packages/core` y `packages/app` usando project references; compilar con `tsc -b`.
+- Ejercicio 3: Añadir `type-check` a la pipeline de CI (ejecuta `tsc --noEmit`) y configurar caché para `.tsbuildinfo`.
+
+
+== Módulo 3 — Tipos básicos y anotaciones (2h)
+
+=== Tipos primitivos: explicación y ejemplos
+Los tipos primitivos (`string`, `number`, `boolean`) son la base del modelado en TypeScript. El compilador usa la información de tipos para detectar errores comunes (por ejemplo, pasar un `number` donde se espera un `string`).
+
+==== Ejemplos básicos
+[source,ts]
+----
+let nombre: string = 'Alicia';
+let edad: number = 30;
+let activo: boolean = true;
+----
+
+==== Literal types y usos prácticos
+Los *literal types* limitan los valores permitidos y permiten modelar estados o opciones sin crear enums.
+[source,ts]
+----
+type Status = 'idle' | 'loading' | 'success' | 'error';
+function setStatus(s: Status) { /* ... */ }
+setStatus('loading'); // OK
+// setStatus('waiting') // Error: 'waiting' no forma parte de Status
+----
+
+=== Colecciones y estructuras
+
+==== Arrays y `readonly`
+- `T[]` y `Array<T>` representan colecciones tipadas. `ReadonlyArray<T>` o `readonly T[]` protegen contra mutaciones desde la API pública.
+- Los métodos de array devuelven nuevos arrays o valores y aceptan callbacks tipadas `(value, index, array) => R` — las arrow functions (`=>`) son la forma habitual.
+
+[source,ts]
+----
+// formas de declarar
+type User = { id: string; name: string; age: number };
+const users: User[] = [ { id: '1', name: 'Ana', age: 30 }, { id: '2', name: 'Luis', age: 20 } ];
+const tags: Array<string> = ['ts', 'js'];
+const fixed: readonly string[] = ['one', 'two'] as const; // readonly, no push/pop
+
+// map: proyecta cada elemento (inferencia automática del tipo de retorno)
+const names = users.map(u => u.name); // string[]
+
+// filter: estrecha y devuelve subconjunto tipado
+const adults = users.filter(u => u.age >= 18); // User[]
+
+// find: devuelve T | undefined
+const firstAdult = users.find(u => u.age >= 18); // User | undefined
+if (firstAdult) console.log(firstAdult.name); // narrowing
+
+// reduce: acumula con tipo explícito para el acumulador
+const totalAge = users.reduce((acc, u) => acc + u.age, 0); // number
+
+// forEach: iteración con efecto (devuelve void)
+users.forEach(u => console.log(u.id));
+
+// flatMap: map + flatten (útil para arrays anidados)
+const tagsPerUser: string[][] = [['a','b'], ['c']];
+const allTags = tagsPerUser.flatMap(t => t); // string[]
+
+// sort muta el array: clonar si quieres inmutabilidad
+const sortedByAge = [...users].sort((a,b) => a.age - b.age);
+
+// Ejemplo: encadenado y reducción tipada
+const result = users
+  .filter(u => u.age >= 18)
+  .map(u => u.name)
+  .reduce<string[]>((acc, name) => { acc.push(name); return acc }, []);
+----
+
+==== Callbacks tipadas y firma de los métodos
+- Firma típica de `map`/`filter`: `(value: T, index: number, array: T[]) => R`.
+- Puedes declarar el tipo explícito cuando la inferencia no es suficiente:
+
+[source,ts]
+----
+const upperNames = users.map((u: User, i: number): string => `${i}:${u.name}`);
+function pluck<T, K extends keyof T>(arr: T[], key: K): T[K][] { return arr.map(item => item[key]); }
+const ids = pluck(users, 'id'); // string[]
+----
+
+=== Inmutabilidad y `ReadonlyArray` / `as const`
+- `readonly` evita métodos mutables (push/pop/splice). Para crear arrays literales inmutables usa `as const` (produce tuplas readonly con literales literales).
+
+[source,ts]
+----
+const nums = [1,2,3] as const;        // readonly [1,2,3]
+// nums.push(4) // Error: método no disponible
+const ro: ReadonlyArray<number> = [1,2,3];
+----
+
+=== Buenas prácticas y rendimiento
+- Prefiere los métodos `map`/`filter`/`reduce` para expresividad y menor probabilidad de errores; usa bucles `for` cuando la micro‑optimización sea crítica.
+- Evita mutar arrays compartidos; clona con spread (`[...]`) antes de `sort`/`reverse`.
+- Tipa siempre las funciones públicas que aceptan callbacks para evitar `any` accidental.
+
+=== Errores comunes
+- Olvidar que `sort` muta el array original.
+- Usar `any` en callbacks y perder inferencia de tipos.
+- Exponer arrays mutables desde APIs públicas sin `readonly`.
+
+=== Ejercicios rápidos
+- Implementa `unique<T>(arr: T[]): T[]` usando `filter` y `indexOf`.
+- Escribe `groupBy<T, K extends string>(arr: T[], fn: (t: T) => K): Record<K, T[]>` con `reduce`.
+- Implementa `pluck` (se mostró arriba) y escríbelo con tipos genéricos.
+- Escribe tests con `vitest` para `groupBy` y `unique`.
+
+==== Tuplas (tuples)
+Las tuplas modelan arrays de longitud fija con tipos por posición.
+[source,ts]
+----
+type Point = [number, number];
+const p: Point = [10, 20];
+// p[0] es number, p[1] es number
+----
+
+==== Enums vs union de literales
+- `enum` genera valores en tiempo de ejecución; útil cuando necesitas ese valor en runtime.
+- Para la mayoría de los casos en aplicaciones, `union` de literales es más ligero y más fácil de analizar por el compilador.
+
+[source,ts]
+----
+enum ColorEnum { Red = 'red', Green = 'green' }
+type ColorUnion = 'red' | 'green';
+----
+
+=== Null / Undefined y control de nulabilidad
+Con `--strict` activo, TypeScript diferencia entre `T`, `T | undefined` y `T | null`.
+
+==== Opcionales y operadores
+- Propiedad opcional `name?: string` ≡ `name: string | undefined`.
+- Uso de `NonNullable<T>` para excluir `null` y `undefined`.
+
+[source,ts]
+----
+function saludo(nombre?: string) {
+  if (!nombre) return 'Hola, invitado';
+  return `Hola, ${nombre.toUpperCase()}`; // nombre ya está estrechado
+}
+----
+
+=== Inferencia de tipos y cuándo anotar
+TypeScript infiere tipos por defecto; suele ser preferible dejar que infiera cuando la intención es obvia y anotar interfaces o APIs públicas.
+
+- Evita anotaciones redundantes en variables locales.
+- Anota funciones exportadas y tipos de datos que forman parte del contrato del módulo.
+
+[source,ts]
+----
+const count = 0; // inferido como number
+function doble(x: number) { return x * 2; } // anotar parámetros públicos
+----
+
+==== Declaración implícita vs explícita (variables primitivas)
+TypeScript puede inferir el tipo a partir del valor inicial (declaración implícita) o aceptar una anotación explícita por parte del desarrollador. A continuación: ejemplos, diferencias prácticas y cuándo preferir cada enfoque.
+
+[source,ts]
+----
+// 1) Declaración implícita — TypeScript infiere el tipo desde el valor
+let edad = 30;           // edad: number (inferencia)
+const saludo = 'Hola';   // saludo: "Hola" (literal si es const)
+
+// 2) Declaración explícita — el desarrollador fija el tipo
+let edadExplicita: number = 30;
+let saludoExplicito: string = 'Hola';
+
+// 3) Peligro: variable sin inicializar -> any (si noImplicitAny = false)
+let sinInicializar;      // any  <-- evitar
+let sinInicializarOk: number; // correcto con anotación
+----
+
+==== Const vs let — literal widening
+- `const s = 'x'` infiere el tipo literal `'x'`.
+- `let s = 'x'` infiere `string` (se *widened*).
+- Usa `as const` para fijar literales en arrays/objetos.
+
+[source,ts]
+----
+const lit = 'hola' as const; // tipo: 'hola'
+let widened = 'hola';        // tipo: string
+----
+
+==== ¿Cuándo usar implícita y cuándo explícita?
+- Implícita: variables locales y temporales donde la intención queda clara; reduce ruido.
+- Explícita: surface pública (exports, parámetros/retornos públicos), propiedades de clase sin inicializador, variables que deben cumplir un contrato (uniones, literales), o para evitar `any` accidental.
+
+#### Buenas prácticas rápidas
+- Activa `strict` y `noImplicitAny` para evitar sorpresas.
+- No relies en inferencia para la API pública: documenta la intención con anotaciones.
+- Prefiere inferencia en código interno y anotaciones claras en la superficie del módulo.
+
+
+=== Type assertions (`as`) y `unknown`
+- `as` fuerza al compilador a tratar un valor como otro tipo; úsalo con cuidado.
+- `unknown` es el sustituto seguro de `any`: obliga a comprobar/estrechar antes de usar.
+
+[source,ts]
+----
+const value: unknown = JSON.parse('{}');
+if (typeof value === 'object' && value !== null) {
+  // aquí ya podemos estrechar y acceder con seguridad
+}
+// Evita `any` salvo en casos justificados
+----
+
+=== `any` vs `unknown` (comparativa rápida)
+- `any`: desactiva comprobaciones de tipos (peligroso).
+- `unknown`: obliga a realizar checks antes de operar (más seguro).
+
+=== Type guards y narrowing (estrechamiento de tipos)
+Type guards permiten a TypeScript deducir el tipo real en un bloque condicional: `typeof`, `instanceof`, `in` y *user-defined guards*.
+
+[source,ts]
+----
+// Contexto: user-defined type guard + ejemplo de uso real.
+type Cat = { meow: () => void };
+type Dog = { bark: () => void };
+function isCat(a: Cat | Dog): a is Cat { return 'meow' in (a as any); }
+
+function speak(a: Cat | Dog) {
+  if (isCat(a)) {
+    // aquí `a` ya está estrechado a `Cat`
+    a.meow();
+  } else {
+    a.bark();
+  }
+}
+
+// Ejemplo de ejecución
+const pet1: Cat | Dog = { meow() { console.log('meow') } };
+const pet2: Cat | Dog = { bark() { console.log('bark') } };
+speak(pet1); // meow
+speak(pet2); // bark
+----
+
+=== Discriminated unions (uniones discriminadas)
+Patrón muy útil para modelar variantes con una propiedad discriminadora (`kind`, `type`). Facilita el *narrowing* exhaustivo.
+
+[source,ts]
+----
+type Shape =
+  | { kind: 'circle'; r: number }
+  | { kind: 'rect'; w: number; h: number };
+function area(s: Shape) {
+  switch (s.kind) {
+    case 'circle': return Math.PI * s.r * s.r;
+    case 'rect': return s.w * s.h;
+  }
+}
+----
+
+=== Buenas prácticas (reglas rápidas)
+- Activa `strict` desde el inicio. ✅
+- Prefiere `unknown` sobre `any`. ✅
+- Prefiere `union` literal para estados simples; usa `enum` si necesitas el valor en runtime.
+- Anota la API pública (exports), confía en la inferencia en código interno.
+
+=== Ejemplos y ejercicios propuestos
+==== Ejercicio 1 — Modela `User` y valida
+- Crea un tipo `User` con propiedades: `id: string | number`, `name: string`, `email?: string`, `role: 'user' | 'admin'`.
+- Escribe un *user-defined type guard* `isUser(x: unknown): x is User` que valide la forma del objeto.
+
+==== Ejercicio 2 — Tuplas y utilidades
+- Define una tupla `RGB = [number, number, number]` y una función `toHex(c: RGB): string`.
+
+==== Ejercicio 3 — Null y opcionales
+- Implementa `getDisplayName(u?: User | null): string` que devuelva un valor por defecto si `u` es `null`/`undefined` o `u.name` está vacío.
+
+==== Ejercicio 4 — Práctica de narrowing
+- Dado `type Event = { type: 'click'; x:number;y:number } | { type: 'keypress'; key: string }`, escribe un handler que trate ambos casos con seguridad de tipos.
+
+---
+
+== Módulo 4 — Funciones y tipado de API (2h)
+
+=== Firmas de función y sobrecargas (explicación)
+Las funciones son el principal mecanismo para definir contratos en TypeScript. Tipar correctamente las firmas mejora la legibilidad, la seguridad y la experiencia en el editor.
+
+==== Declaración de tipos para funciones
+- Sintaxis de función: `function fn(a: A): R`.
+- Tipos de función como valores: `(a: A) => R` y `type Fn = (a: A) => R`.
+
+[source,ts]
+----
+function sum(a: number, b: number): number { return a + b }
+const multiply: (a: number, b: number) => number = (x, y) => x * y;
+type Predicate<T> = (v: T) => boolean;
+----
+
+==== Overloads vs unions
+- Usa *overloads* cuando la función tiene varias formas públicas con comportamientos distintos en tiempo de ejecución.
+- Para casos simples, `unions` o `generics` pueden ser más legibles.
+
+[source,ts]
+----
+// Overload example
+function format(x: string): string;
+function format(x: number): string;
+function format(x: any) { return String(x).trim(); }
+----
+
+=== Parámetros, valores por defecto y `this` (contexto)
+
+==== Parámetros opcionales, rest y defaults
+- Parámetros opcionales `a?: T` ≡ `a: T | undefined`.
+- `...rest: T[]` para argumentos variables.
+- Valores por defecto `fn(x = 10)`.
+
+[source,ts]
+----
+function build(name: string, flags: string[] = [], ...tags: string[]) {
+  return { name, flags, tags };
+}
+----
+
+==== Tipado de `this`
+- TypeScript permite declarar el tipo de `this` en la firma de la función para evitar errores en callbacks/métodos.
+
+[source,ts]
+----
+function handler(this: HTMLButtonElement, e: Event) {
+  this.disabled = true;
+}
+// addEventListener('click', handler) // VSCode sabe el tipo de `this`
+----
+
+=== Utilidades útiles para funciones
+TypeScript proporciona utilidades que extraen tipos desde funciones: `Parameters`, `ReturnType`, `ThisParameterType`, `InstanceType`.
+
+[source,ts]
+----
+function fetchJson<T>(url: string): Promise<T> { return fetch(url).then(r => r.json()) }
+type FetchArgs = Parameters<typeof fetchJson>; // [string]
+type FetchResult<T> = ReturnType<typeof fetchJson>; // Promise<T>
+----
+
+=== APIs asíncronas y manejo de errores tipado
+
+==== Tipar `fetch`/request con generics
+- Usa genéricos en wrappers de red para propagar tipos desde la llamada hasta el consumidor.
+
+[source,ts]
+----
+// Contexto: wrapper minimalista de `fetch` que propaga el tipo `T` al consumidor.
+async function request<T>(url: string): Promise<T> {
+  const r = await fetch(url);
+  if (!r.ok) throw new Error(r.statusText);
+  return r.json() as Promise<T>;
+}
+
+// Ejemplo de uso: definir interfaz y consumir con manejo de errores
+interface User { id: number; name: string }
+(async () => {
+  try {
+    const user = await request<User>('https://jsonplaceholder.typicode.com/users/1');
+    console.log('user.name =', user.name);
+  } catch (err) {
+    console.error('request failed:', (err as Error).message);
+  }
+})();
+----
+
+==== Patrón Result (alternativa a excepciones)
+- Para librerías públicas, devolver `Result<T, E>` evita excepciones impuras y facilita el testeo.
+
+[source,ts]
+----
+type Result<T, E = Error> = { ok: true; value: T } | { ok: false; error: E };
+async function safeRequest<T>(url: string): Promise<Result<T>> {
+  try { return { ok: true, value: await request<T>(url) } }
+  catch (error) { return { ok: false, error: error as Error } }
+}
+----
+
+=== Patrones y diseño de APIs tipadas
+- Anotar la *firma pública* de funciones exportadas.
+- Preferir genéricos bien nombrados a sobrecargas excesivas.
+- Mantener las funciones pequeñas y composables; usar helpers genéricos.
+
+[source,ts]
+----
+type Middleware<Req, Res> = (req: Req, next: () => Promise<Res>) => Promise<Res>;
+async function runMiddlewares<Req, Res>(req: Req, mws: Middleware<Req, Res>[]): Promise<Res> { /* ... */ }
+----
+
+=== Buenas prácticas para APIs de función
+- Documentar la firma pública y la semántica de errores.
+- Preferir `unknown` para entradas externas y validar/estrechar internamente.
+- Evitar `any` en la superficie de la API.
+
+=== Ejercicios prácticos y taller (clase)
+- Ejercicio 1 — Implementa `retry<T>`:
+  - Firma: `async function retry<T>(fn: () => Promise<T>, attempts: number): Promise<T>`
+  - Reintentar en errores temporales y tipar correctamente el retorno.
+
+  Ejemplo de implementación (solución de ejemplo):
+  [source,ts]
+  ----
+  // reintenta `fn` hasta `attempts` veces con backoff simple
+  async function retry<T>(fn: () => Promise<T>, attempts: number): Promise<T> {
+    let lastError: unknown;
+    for (let i = 0; i < attempts; i++) {
+      try { return await fn(); }
+      catch (err) {
+        lastError = err;
+        if (i === attempts - 1) break;
+        await new Promise(r => setTimeout(r, 100 * (i + 1))); // backoff
+      }
+    }
+    throw lastError;
+  }
+
+  // uso de ejemplo: función con fallo intermitente
+  let tries = 0;
+  async function flaky(): Promise<string> {
+    tries++;
+    if (tries < 3) throw new Error('temporary');
+    return 'OK';
+  }
+
+  (async () => { console.log(await retry(flaky, 5)) })();
+  ----
+
+
+- Ejercicio 2 — Cliente HTTP tipado:
+  - Crea `apiGet<T>(url: string): Promise<T>` que use `request<T>` y devuelva `Result<T>` en su variante segura.
+
+- Ejercicio 3 — Middleware tipado:
+  - Define `Middleware<Req, Res>` y un `compose` que combine middlewares con seguridad de tipos.
+
+- Ejercicio 4 — Sobrecargas y genéricos:
+  - Escribe una función `parse(value: string): string` y `parse(value: string, asNumber: true): number` usando sobrecargas bien tipadas.
+
+---
+
+
+== Módulo 5 — Interfaces y tipos compuestos (2h)
+
+=== `interface` vs `type` — reglas prácticas
+Breve resumen: `interface` es ideal para objetos extensibles y APIs públicas (soporta declaration merging). `type` es más flexible para uniones, intersecciones y tipos complejos (tuplas, mapped types). Elige `interface` para contratos abiertos y `type` para composiciones y alias.
+
+[source,ts]
+----
+// interface (extensible)
+interface User { id: number; name: string }
+interface User { email?: string } // declaration merging
+
+// type (alias flexible)
+type ID = string | number;
+type Point = [number, number];
+----
+
+=== Extensión y reutilización
+- `extends` para interfaces y `&` para `type` (intersections).
+- Preferir herencia ligera (extends) para modelos relacionados; usar intersecciones para mezclar capacidades.
+
+[source,ts]
+----
+interface Base { id: number }
+interface Admin extends Base { role: 'admin' }
+type WithTimestamp<T> = T & { createdAt: string }
+----
+
+=== Composición de tipos: unions y intersections
+- Unión (`A | B`): alternativas (usar discriminadores para narrowing).
+- Intersección (`A & B`): combinación de propiedades/behaviors.
+
+[source,ts]
+----
+type Success = { status: 'ok'; data: any }
+type Failure = { status: 'error'; message: string }
+type ApiResponse = Success | Failure; // discriminated union
+
+type Persisted<T> = T & { id: string; createdAt: string };
+----
+
+=== Index signatures y `Record` (objetos dinámicos)
+- Index signature: cuando las claves no están predefinidas.
+- `Record<K,T>`: forma declarativa y segura de mapear claves conocidas o string/number.
+
+[source,ts]
+----
+interface StringMap { [k: string]: string }
+const scores: Record<'alice' | 'bob', number> = { alice: 10, bob: 8 };
+----
+
+=== Mapped types y key remapping
+Mapped types transforman tipos existentes (ej.: `Partial`, `Readonly`). Con remapeo de claves (`as`) puedes renombrar o aplicar prefijos.
+
+[source,ts]
+----
+// implementar Partial<T> + ejemplo de uso
+type MyPartial<T> = { [K in keyof T]?: T[K] };
+interface User { id: number; name: string; active: boolean }
+const partialUser: MyPartial<User> = { name: 'Ana' }; // válido
+
+// remapeo de claves: añadir prefijo + ejemplo de uso
+type Prefixed<T, P extends string> = { [K in keyof T as `${P & string}${K & string}`]: T[K] };
+type PrefixedUser = Prefixed<User, 'data-'>;
+const p: PrefixedUser = { ['data-id']: 1, ['data-name']: 'Ana', ['data-active']: true } as any;
+console.log(partialUser, p);
+----
+
+=== Utility types en la práctica
+- `Partial<T>`, `Required<T>`, `Readonly<T>`, `Pick<T,K>`, `Omit<T,K>`, `Record<K,T>` facilitan mantenimiento y evitan duplicar modelos.
+- Usa `Omit` para crear DTOs a partir de entidades (p. ej. quitar `password` o `id`).
+
+[source,ts]
+----
+interface User { id: number; name: string; password: string }
+type PublicUser = Omit<User, 'password'>;
+type NewUser = Omit<User, 'id'> & { password: string };
+----
+
+=== Patrones de modelado: DTOs, Entities y Value Objects
+- DTO: formato de entrada/salida (ligero, validable).
+- Entity: objeto del dominio con invariantes y comportamiento.
+- Value Object: tipo inmutable que encapsula lógica (ej.: `Email`, `Money`).
+
+[source,ts]
+----
+interface UserEntity { id: number; name: string; email?: string; createdAt: string }
+type CreateUserDTO = Omit<UserEntity, 'id' | 'createdAt'>;
+function toEntity(dto: CreateUserDTO): UserEntity { /* validar y añadir campos */ throw new Error('implementar') }
+----
+
+=== Tipos híbridos y firmas de llamada
+Las `interface` pueden describir objetos que también son funciones (callable objects) o que tengan propiedades y métodos.
+
+[source,ts]
+----
+interface Counter { (start: number): void; value: number }
+const counter: Counter = (function (start: number) { (counter as any).value = start; } as any);
+counter.value = 0;
+----
+
+=== Declaration merging y module augmentation (cuándo usar)
+- Útil para extender tipos de librerías o añadir campos globales (p. ej. `Express.Request`).
+- Documenta las augmentations y evita cambios inesperados en dependencias.
+
+[source,ts]
+----
+declare module 'express-serve-static-core' {
+  interface Request { currentUser?: { id: string; role: string } }
+}
+----
+
+=== Buenas prácticas y anti-patrones
+- Usa `interface` para contratos públicos que puedan extenderse; usa `type` para uniones y composiciones complejas.
+- Mantén DTOs y Entities separados; transforma explícitamente entre ellos.
+- Prefiere `Record` a index signatures cuando conozcas las claves posibles.
+- Evita tipos excesivamente anidados o condicionales que dificulten la comprensión.
+
+=== Ejercicios prácticos (clase / tarea)
+- Ejercicio 1 — Catálogo de productos:
+  - Diseña `Product`, `Variant`, `Price` y un `Record<SKU, Variant>`; implementa tipos para filtrar variantes por atributos.
+
+- Ejercicio 2 — Utilities profundas:
+  - Implementa `DeepReadonly<T>` y `DeepPartial<T>` y escribe tests que demuestren el comportamiento.
+
+- Ejercicio 3 — DTO → Entity:
+  - Crea `CreateOrderDTO` y `OrderEntity`; escribe `toEntity(dto)` con validaciones y type guards.
+
+- Ejercicio 4 — Augmentación práctica:
+  - Añade `currentUser` a `Express.Request` y crea un middleware tipado.
+
+
+== Módulo 6 — Clases y POO en TypeScript (2h)
+
+=== Introducción práctica
+Las `class` de TypeScript son azúcar sintáctico sobre el prototipo de JavaScript, pero combinadas con el sistema de tipos permiten expresar contratos, encapsular comportamiento y crear patrones reutilizables (factories, repositorios, value objects). En este bloque veremos cómo *construir* clases correctamente y cuándo preferir interfaces o composición.
+
+=== Construyendo clases — paso a paso (sintaxis y variantes)
+- Declarar propiedades públicas/privadas con tipos explícitos.
+- `readonly` para propiedades inmutables después de la inicialización.
+- Parameter properties (`constructor(public x: T)`) crean y asignan la propiedad automáticamente.
+- Inicializadores de propiedad y valores por defecto en el constructor.
+
+[source,ts]
+----
+class Person {
+  readonly createdAt = new Date();        // inicializador de propiedad
+  private _age: number;                  // campo privado
+
+  constructor(public id: string, public name: string, age = 0) {
+    this._age = age;                     // asignación en constructor
+  }
+
+  get age() { return this._age }         // getter (encapsulación)
+  birthday() { this._age += 1 }          // método de instancia
+  toString() { return `${this.name} (${this.id})` }
+}
+
+// Ejemplo práctico: BankAccount con encapsulación fuerte (campo privado de ECMAScript)
+class BankAccount {
+  #balance = 0; // privado en runtime
+  constructor(public readonly owner: string) {}
+  deposit(amount: number) { if (amount <= 0) throw new Error('amount must be positive'); this.#balance += amount }
+  withdraw(amount: number) { if (amount <= 0) throw new Error('amount must be positive'); if (amount > this.#balance) throw new Error('insufficient funds'); this.#balance -= amount }
+  getBalance() { return this.#balance }
+}
+
+// uso
+const acc = new BankAccount('alice');
+acc.deposit(100);
+try { acc.withdraw(150); } catch (err) { console.log('withdraw failed:', (err as Error).message) }
+console.log('balance =', acc.getBalance());
+----
+
+Puntos didácticos:
+- `constructor(public id: string)` es equivalente a declarar `id` y asignarlo en el constructor.
+- Prefiere `private`/`readonly` para invariantes; usa `get` para exponer lectura controlada.
+
+=== Interfaces como contrato de clase (shape y `implements`)
+- `interface` describe la forma (shape) que una clase debe satisfacer; TypeScript usa *structural typing* (no hace falta `implements` para comprobar compatibilidad, pero `implements` documenta intención).
+
+[source,ts]
+----
+interface Identifiable { id: string }
+class Entity implements Identifiable { constructor(public id: string) {} }
+// cualquier objeto con `id: string` es compatible con Identifiable
+----
+
+Cuándo usar `interface` vs `class`:
+- Usa `interface` para describir contratos públicos y permitir múltiples implementaciones.
+- Usa `class` cuando necesitas comportamiento en runtime (`instanceof`), campos privados, o inicialización.
+
+=== Herencia, abstracción y polimorfismo (práctica segura)
+- `extends` reutiliza implementación; `super(...)` llama al constructor padre.
+- `abstract class` define métodos que las subclases deben implementar; útil para plantillas de comportamiento.
+- `protected` para miembros accesibles en subclases pero no desde fuera.
+
+[source,ts]
+----
+abstract class Animal {
+  constructor(public name: string) {}
+  abstract speak(): string;             // contrato para subclases
+}
+class Dog extends Animal {
+  speak() { return `${this.name} says woof` }
+}
+
+function announce(a: Animal) { console.log(a.speak()) } // polimorfismo
+----
+
+Buenas prácticas con herencia:
+- Limita la profundidad de la jerarquía; prefiere composición cuando el comportamiento puede delegarse.
+- Usa interfaces para definir contratos y `abstract` para código compartido con estados/invariantes.
+
+=== Métodos y propiedades estáticas — cuándo y cómo usarlos
+- `static` define miembros en el «lado constructor» (shared across instances). Útiles para constantes, utilidades y fábricas.
+- Evita estado mutable estático en aplicaciones concurridas (produce efectos globales).
+
+[source,ts]
+----
+class MathUtil {
+  static readonly PI = 3.14159;
+  static circleArea(r: number) { return MathUtil.PI * r * r }
+  private constructor() {} // evita instanciación
+}
+
+const area = MathUtil.circleArea(2);
+----
+
+Patrón común: `static` factory
+[source,ts]
+----
+class User {
+  private constructor(public id: string, public name: string) {}
+  static create(name: string) { return new User(String(Date.now()), name) }
+}
+const u = User.create('Ana');
+----
+
+=== Uso práctico: patrones con clases (repositorio, value object, factory)
+- Repository: encapsula acceso a datos con una API tipada.
+- Value Object: clase pequeña, inmutable y con igualdad por valor (ej.: `Email`).
+- Factory / DI ligero: fábricas estáticas o inyección por constructor para separar creación y uso.
+
+[source,ts]
+----
+class Email {
+  constructor(public readonly value: string) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) throw new Error('Email inválido');
+  }
+  equals(other: Email) { return this.value === other.value }
+}
+
+class InMemoryRepo<T extends { id: string }> {
+  private map = new Map<string, T>();
+  save(item: T){ this.map.set(item.id, item); return item }
+  find(id: string){ return this.map.get(id) ?? null }
+}
+----
+
+Consejos prácticos:
+- Mantén entidades mutables solo donde sea necesario; usa `readonly` en DTOs y value objects.
+- Prefiere métodos de instancia para comportamiento que requiere estado y funciones puras para transformaciones.
+
+=== Errores comunes y antipatterns con clases
+- Jerarquías profundas y uso excesivo de `instanceof` (rompe extensibilidad).
+- Exponer colecciones mutables (usa `readonly` o copias defensivas).
+- Abuso de propiedades estáticas con estado mutable (dificulta tests y concurrencia).
+- Olvidar validar invariantes en constructores.
+
+=== Ejercicios didácticos (claro y aplicable)
+- Ejercicio 1 — `BankAccount` seguro:
+  - Implementa `BankAccount` con campo privado `#balance`, métodos `deposit`/`withdraw` y `getBalance`.
+  - Añade validaciones (no permitir saldo negativo) y tests.
+
+- Ejercicio 2 — `Email` como Value Object:
+  - Implementa la clase `Email` inmutable con validación en constructor y método `equals`.
+
+- Ejercicio 3 — Herencia controlada:
+  - Crea `abstract class Shape { abstract area(): number }` y `Circle`/`Rectangle` que sobrescriban `area`.
+  - Escribe una función que calcule el área total de `Shape[]` demostrando polimorfismo.
+
+- Ejercicio 4 — Factory estático:
+  - Implementa `User.create(name)` que genera un `id` único y devuelve una instancia tipada.
+
+---
+
+---
+
+== Módulo 7 — Genéricos y utilidades (2h)
+
+=== ¿Qué son los genéricos? (intención pedagógica)
+Los genéricos permiten escribir código que funciona con distintos tipos manteniendo la seguridad del sistema de tipos. Piensa en ellos como *plantillas* para funciones, interfaces o clases que se adaptan al tipo concreto donde se usan.
+
+=== Genéricos básicos: sintaxis y ejemplos
+- Firma genérica: `function id<T>(v: T): T`.
+- Generics en interfaces y clases para modelar containers/repositories.
+
+[source,ts]
+----
+function id<T>(v: T): T { return v }
+const s = id<string>('hola');
+
+interface Box<T> { value: T }
+const b: Box<number> = { value: 42 };
+----
+
+==== Constraints (`T extends U`) y `keyof`
+- Restringe qué tipos son válidos para un parámetro genérico.
+- `keyof T` permite limitar claves válidas y crear helpers tipados.
+
+[source,ts]
+----
+// Contexto: helper genérico que extrae una propiedad con seguridad de tipos.
+function getProp<T, K extends keyof T>(obj: T, key: K): T[K] { return obj[key] }
+const user = { id: 1, name: 'Ana' };
+const name = getProp(user, 'name'); // inferred as string
+
+// uso práctico: crear un pluck reutilizable
+function pluck<T, K extends keyof T>(arr: T[], key: K): T[K][] { return arr.map(item => item[key]) }
+const ids = pluck([{id: 'a'}, {id: 'b'}], 'id'); // string[]
+console.log(name, ids);
+// getProp(user, 'age') // Error: 'age' no existe en user
+----
+
+==== Parámetros por defecto y genéricos condicionales
+- Puedes dar valores por defecto a parámetros genéricos: `T = any`.
+- Útil para APIs que quieren ser genéricas pero con comportamiento por defecto.
+
+[source,ts]
+----
+type Wrap<T = string> = { value: T };
+const w: Wrap = { value: 'x' }; // T = string por defecto
+----
+
+=== Patrones prácticos con genéricos
+- Repository<T>, Service<T>, Factory<T> y Middleware genéricos son patrones recurrentes.
+
+[source,ts]
+----
+interface Repository<T, ID = string> {
+  save(item: T): Promise<T>;
+  findById(id: ID): Promise<T | null>;
+}
+class InMemoryRepo<T extends { id: string }> implements Repository<T> {
+  private map = new Map<string, T>();
+  async save(item: T){ this.map.set(item.id, item); return item }
+  async findById(id: string){ return this.map.get(id) ?? null }
+}
+----
+
+=== Utility types (built-in) — usos prácticos
+Breve recordatorio y ejemplos de uso: `Partial`, `Required`, `Readonly`, `Pick`, `Omit`, `Record`, `Exclude`, `Extract`, `NonNullable`, `ReturnType`, `InstanceType`, `Parameters`.
+
+[source,ts]
+----
+interface User { id: number; name: string; password?: string }
+type PublicUser = Omit<User, 'password'>;
+type UpdateUser = Partial<User>;
+function makePublic(u: User): PublicUser { const { password, ...p } = u; return p }
+----
+
+=== Conditional types y `infer` — explicación y ejemplos
+- Conditional types: `T extends U ? X : Y` permiten crear transformaciones de tipos.
+- `infer` extrae tipos intermedios (ej.: extraer el tipo resuelto de una Promise).
+
+[source,ts]
+----
+// Flatten<T>
+type Flatten<T> = T extends Array<infer U> ? U : T;
+type A = Flatten<string[]>; // string
+
+type UnwrapPromise<T> = T extends Promise<infer U> ? U : T;
+type R = UnwrapPromise<Promise<number>>; // number
+----
+
+==== DeepReadonly (ejemplo recursivo)
+[source,ts]
+----
+type DeepReadonly<T> = T extends Function ? T : T extends object ? { readonly [K in keyof T]: DeepReadonly<T[K]> } : T;
+type X = DeepReadonly<{ a: { b: string } }>; // { readonly a: { readonly b: string } }
+----
+
+=== Ejemplos avanzados de tipos utilitarios
+- Extraer claves por valor: `KeysWithType<T, V>` usando mapped + conditional types.
+
+[source,ts]
+----
+type KeysWithType<T, V> = { [K in keyof T]: T[K] extends V ? K : never }[keyof T];
+type StringKeysOf<T> = KeysWithType<T, string>;
+----
+
+=== Aplicaciones prácticas (helpers y validadores)
+- `Validator<T>` genérico para formularios y validación runtime con tipos que describen el shape aceptado.
+
+[source,ts]
+----
+type Validator<T> = (value: unknown) => value is T;
+const isString: Validator<string> = (v): v is string => typeof v === 'string';
+function validate<T>(v: unknown, guard: Validator<T>): T { if (guard(v)) return v; throw new Error('Invalid') }
+----
+
+=== Buenas prácticas con genéricos
+- Nombra parámetros genéricos con sentido (`T`, `K`, `V`, `R` o más descriptivos en APIs públicas).
+- Mantén la aridad baja: demasiados parámetros genéricos hacen la API dura de usar.
+- Documenta la semántica de los parámetros genéricos en la API pública.
+- Evita exponer tipos de implementación complejos en la superficie pública.
+
+=== Ejercicios propuestos (clase / tarea)
+- Ejercicio 1 — Implementa `Flatten<T>` y añade tests que demuestren comportamiento con arrays y no-arrays.
+- Ejercicio 2 — Crea `DeepReadonly<T>` y escribe ejemplos donde la mutación falle en tiempo de compilación.
+- Ejercicio 3 — Diseña `Repository<T>` genérico y una implementación `InMemoryRepo<T>` con tests.
+- Ejercicio 4 — Implementa `Validator<T>` y un helper `validateForm<T>(data: unknown, validators: Record<keyof T, Validator<any>>): T`.
+- Ejercicio 5 — Escribe un `EventEmitter<Events>` tipado donde `Events` sea un map `eventName -> payloadType`.
+
+
+== Módulo 8 — Tipos avanzados y patterns (2h)
+
+=== Discriminated unions y type guards (conceptos y práctica)
+- Las *discriminated unions* combinan un *tag* (`kind`/`type`) con variantes tipadas; son la forma más segura y legible para modelar estados y eventos.
+- Usa `switch` exhaustivo + `never` para forzar comprobación en tiempo de compilación cuando se añadan variantes.
+
+[source,ts]
+----
+// Discriminated union + exhaustive check
+type Event =
+  | { type: 'click'; x: number; y: number }
+  | { type: 'keypress'; key: string };
+
+function handle(e: Event) {
+  switch (e.type) {
+    case 'click': return `click at ${e.x},${e.y}`;
+    case 'keypress': return `key ${e.key}`;
+    default: {
+      const _exhaustive: never = e; // error si hay un nuevo variant sin case
+      return _exhaustive;
+    }
+  }
+}
+----
+
+==== User-defined type guards y `asserts`
+- Declara funciones `x is T` para estrechar tipos en runtime.
+- Usa `asserts` para lanzar errores cuando la validación es necesaria y garantizar al compilador el tipo resultante.
+
+[source,ts]
+----
+function isKeypress(e: Event): e is { type: 'keypress'; key: string } {
+  return e.type === 'keypress';
+}
+
+function ensureKeypress(e: Event): asserts e is { type: 'keypress'; key: string } {
+  if (e.type !== 'keypress') throw new Error('not keypress');
+}
+----
+
+=== Mapped / Conditional / Template literal types (potencia tipada)
+- Mapped types: transforman propiedades de un tipo (ej.: `Partial`, `Readonly`).
+- Conditional types + `infer`: permiten extraer o transformar fragmentos de tipo.
+- Template literal types: manipulan cadenas a nivel de tipo (ej.: generar claves, unir strings).
+
+[source,ts]
+----
+// key remapping: prefix
+type Props = { id: number; name: string };
+type Prefixed = { [K in keyof Props as `data-${K & string}`]: Props[K] };
+// { 'data-id': number; 'data-name': string }
+
+// template literal types: crear eventos
+type Evt<E extends string> = `${E}_EVENT`;
+type LoginEvt = Evt<'USER_LOGIN'>; // 'USER_LOGIN_EVENT'
+----
+
+=== Branded / Nominal typing (cuando lo necesitas)
+- Branding: crea tipos nominales a partir de primitivos para evitar mezclas accidentales (ej.: `UserId` ≠ `OrderId`).
+
+[source,ts]
+----
+// Contexto: branding nominal para evitar mezclar distintos IDs en tiempo de compilación.
+type Brand<K, T> = K & { __brand: T };
+type UserId = Brand<string, 'UserId'>;
+function makeUserId(s: string): UserId { return s as UserId }
+
+function getUserById(id: UserId) { /* ... */ }
+const raw: string = 'abc';
+// getUserById(raw) // Error en compilación: string no es UserId
+const uid = makeUserId('abc');
+getUserById(uid); // OK
+----
+
+=== Metaprogramación de tipos (técnicas comunes)
+- Combina mapped + conditional + template literal types para crear utilidades (p. ej. `DeepReadonly`, `PickByValue`, `SnakeToCamel`).
+- Ten en cuenta el coste en `tsc`/`tsserver`: tipos excesivamente complejos ralentizan el proyecto.
+
+[source,ts]
+----
+// ejemplo: extraer propiedades por tipo
+type PickByValue<T, V> = { [K in keyof T as T[K] extends V ? K : never]: T[K] };
+----
+
+=== Buenas prácticas y advertencias
+- Documenta las utilidades complejas y limita su uso a la capa de tipos (no en la superficie pública si confunde al consumidor).
+- Comprueba el coste de compilación al introducir metaprogramación de tipos; prefiera claridad sobre cleverness.
+
+=== Ejercicios avanzados (clase / tarea)
+- Ejercicio 1 — Eventos tipados: modela un `Event` discriminado (Click/Keypress/Submit) y escribe un handler exhaustivo con `never`.
+- Ejercicio 2 — Guard avanzado: implementa `isValidUser(x: unknown): x is User` con validaciones runtime y tests.
+- Ejercicio 3 — SnakeCase → camelCase (tipos): crea `SnakeToCamel<S>` y tipa una función `camelize<T>(obj: T): SnakeToCamel<T>` (centrarse en el tipado).
+- Ejercicio 4 — Branded IDs: implementa `UserId`/`OrderId` y demuestra no-compatibilidad en compilación.
+- Ejercicio 5 — Utilities metaprogramadas: implementa `PickByValue<T, V>` y úsalo en un ejemplo real.
+
+==== modelar sistema de eventos y handlers tipados
+
+== Módulo 9 — Módulos, declaration files y resolución (1.5h)
+
+=== Sistemas de módulos y empaquetado (ESM vs CommonJS)
+- Diferencia clave: ESM usa `import`/`export` estático; CommonJS usa `require`/`module.exports` en runtime.
+- `package.json` controla cómo Node interpreta los archivos (`"type": "module"` para ESM).
+- `esModuleInterop` / `allowSyntheticDefaultImports` en `tsconfig` facilitan interop entre ambos sistemas.
+
+[source,ts]
+----
+// ESM
+import foo from 'lib';
+// CommonJS
+const foo = require('lib');
+----
+
+[source,json]
+----
+{
+  "name": "mi-paquete",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "type": "module"
+}
+----
+
+=== Declaration files (`.d.ts`) y packaging de tipos
+- `declaration: true` en `tsconfig` genera `.d.ts` junto al `.js` cuando compilas.
+- Campo `types` en `package.json` apunta al fichero de tipos público (p. ej. `dist/index.d.ts`).
+- `declarationMap` ayuda a depurar paquetes tipados (mapea `.d.ts` a `.ts` fuente).
+
+[source,console]
+----
+# generar solo declaraciones
+tsc -p tsconfig.json --emitDeclarationOnly
+# compilar librería y revisar contenido del paquete
+npm pack && tar -tf *.tgz | grep dist
+----
+
+=== Ejemplo mínimo de `.d.ts` para una librería JS
+Contexto: ambient declaration para una librería JS sin tipos; colócalo en `types/` y añádelo en `tsconfig` si es necesario.
+[source,ts]
+----
+// types/legacy-lib.d.ts
+declare module 'legacy-lib' {
+  export function legacy(x: any): string;
+  export interface Options { verbose?: boolean }
+  const version: string;
+  export default legacy;
+}
+----
+
+[source,ts]
+----
+// uso desde TypeScript (src/consumer.ts)
+import legacy, { Options } from 'legacy-lib';
+const r = legacy({}); // tipado disponible gracias a types/legacy-lib.d.ts
+console.log(r);
+----
+
+=== Ambient declarations y module augmentation
+- `declare module 'x' {}` se usa cuando una dependencia no tiene tipos.
+- Module augmentation (`declare module 'express-serve-static-core' { interface Request { user?: User } }`) permite añadir propiedades a tipos externos.
+- `declare global { interface Window { __APP_VERSION__?: string } }` extiende el ambito global.
+
+[source,ts]
+----
+// añadir currentUser a Express Request
+declare module 'express-serve-static-core' {
+  interface Request { currentUser?: { id: string; role: string } }
+}
+----
+
+=== Path mapping y resolución práctica (baseUrl / paths)
+- `baseUrl` y `paths` simplifican imports (`@app/* -> src/*`).
+- IMPORTANTE: sincronizar `paths` con bundler (Vite/webpack) y con test runners (Jest/Vitest) para evitar errores en runtime.
+
+[source,json]
+----
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": { "@app/*": ["src/*"] }
+  }
+}
+----
+
+[source,ts]
+----
+// vite.config.ts (alias)
+import { defineConfig } from 'vite';
+import path from 'path';
+export default defineConfig({ resolve: { alias: { '@app': path.resolve(__dirname, 'src') } } });
+----
+
+=== Publicar paquetes con tipos (checklist)
+- Activar `declaration: true` y `declarationMap` si necesitas mapear tipos al fuente.
+- Asegurar `types` en `package.json` y que los `.d.ts` estén incluidos en `files` o `npm pack`.
+- Considerar `typesVersions` para orientar a consumidores con diferentes versiones de TS.
+
+[source,json]
+----
+{
+  "files": ["dist"],
+  "types": "dist/index.d.ts",
+  "typesVersions": { "*": { "./*": ["dist/*"] } }
+}
+----
+
+=== Resolución de problemas comunes y comandos útiles
+- Error "Could not find a declaration file for module 'x'" → instalar `@types/x` o crear `declare module 'x'`.
+- Ver cómo TypeScript resuelve un import: `tsc --traceResolution`.
+- Inspeccionar paquete publicado: `npm pack` + `tar -tf`.
+
+[source,console]
+----
+npx tsc --traceResolution src/index.ts
+npx tsc -p tsconfig.json --showConfig
+npm pack && tar -tf mi-paquete-*.tgz | grep ".d.ts\|index.js"
+----
+
+=== Buenas prácticas (publicación y compatibilidad)
+- Publica tanto `main` (CommonJS) como `module` (ESM) si soportas ambos entornos.
+- Incluye `types` y prueba la consumición desde un proyecto TypeScript limpio.
+- Evita `allowJs` en paquetes; prefiere publicar definiciones claras.
+
+=== Ejercicios prácticos (clase / tarea)
+- Ejercicio 1 — Escribir `.d.ts` para una dependencia JS:
+  - Crea `types/legacy-lib.d.ts`, añade la referencia en `tsconfig` y consume la librería desde TS.
+- Ejercicio 2 — Publicar paquete con tipos:
+  - Configura `declaration: true`, añade `types` en `package.json` y usa `npm pack` para validar el `.tgz`.
+- Ejercicio 3 — Configurar alias en dev/prod/tests:
+  - Añade `paths` en `tsconfig`, alias en `vite.config.ts` y `moduleNameMapper` en `jest`.
+- Ejercicio 4 — Module augmentation:
+  - Extiende `Express.Request` con `currentUser` y escribe un middleware tipado que lo setee.
+- Ejercicio 5 — Diagnóstico:
+  - Usa `tsc --traceResolution` para resolver un fallo de import y documenta la solución aplicada.
+
+---
+
+== Módulo 10 — Tooling, linting y testing (1.5h)
+=== ESLint y calidad de código
+==== `@typescript-eslint`, reglas esenciales y configuración
+
+== Módulo 10 — Tooling, linting y testing (1.5h)
+
+=== ESLint y calidad de código 
+- ESLint + `@typescript-eslint` es la combinación estándar para mantener consistencia y encontrar anti-patterns estáticos.
+- Objetivo: detectar errores lógicos, enforcing de convenciones y prevenir regresiones antes de ejecutar código.
+
+==== Configuración mínima (ejemplo)
+[source,json]
+----
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"]
+}
+----
+
+==== Reglas recomendadas a activar
+- `@typescript-eslint/no-unused-vars`, `@typescript-eslint/explicit-function-return-type` (opcional), `no-implicit-globals`.
+- `max-warnings=0` en CI para impedir merges con warnings.
+
+==== Integración Prettier + lint-staged
+- Usa Prettier para formateo automático y `lint-staged` para ejecutar ESLint/Prettier en pre-commit.
+
+[source,json]
+----
+{"lint-staged": {"src/**/*.{ts,tsx,js,json,md}": ["prettier --write", "eslint --fix"]}}
+----
+
+=== Testing tipado (qué, por qué y cómo)
+- Testing tipado asegura que las pruebas y mocks respetan tipos; facilita refactors.
+- Herramientas: `vitest` (rápido, ESM-friendly), `jest` + `ts-jest` (maduro, compatibilidad amplia).
+
+==== Vitest — configuración y ejemplo
+Contexto: configuración mínima de `vitest` para Node y ejemplos de tests síncrono y asíncrono.
+[source,ts]
+----
+// vitest.config.ts
+import { defineConfig } from 'vitest/config';
+export default defineConfig({ test: { globals: true, environment: 'node' } });
+
+// sample.test.ts
+import { describe, it, expect } from 'vitest';
+import { sum } from './sum';
+
+it('suma', () => expect(sum(1,2)).toBe(3));
+
+// async example
+async function fetchNumber(): Promise<number> { return 42 }
+it('async ejemplo', async () => { expect(await fetchNumber()).toBe(42) });
+----
+
+==== Jest + ts-jest (cuando usarlo)
+- Usa `ts-jest` si dependes de ecosistemas, snapshots o migraciones desde Jest.
+- Configuración ESM requiere ajustes adicionales (`transform: { '^.+\\.ts$': 'ts-jest' }`).
+
+=== Estrategias de mocking y pruebas unitarias tipadas
+- Prefiere inyección de dependencias y `vi.fn()` / `jest.fn()` con tipos genéricos.
+- Testea comportamiento (contratos) y no implementaciones privadas.
+
+=== Bundlers, builds y source maps (práctico)
+- Herramientas: `esbuild` (rápido, CLI), `vite` (dev server), `rollup`/`webpack` (producción, plugins).  
+- Los bundlers no reemplazan la comprobación de tipos: ejecutar siempre `tsc --noEmit` en CI.
+
+[source,console]
+----
+# ejemplo esbuild (build rápido)
+esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --sourcemap
+----
+
+==== Source maps y debugging
+- Habilita `sourceMap: true` en `tsconfig` y configura el bundler para mantener sourcemaps.
+- Para librerías publica `declarationMap: true` para mapear `.d.ts` a fuentes.
+
+=== CI/CD y type-check en pipelines (recomendaciones)
+- Pipeline mínimo: install → type-check (`tsc --noEmit`) → lint → test → build.
+- Cachea `node_modules` y `.tsbuildinfo` para acelerar builds incrementales en monorepos.
+
+==== Ejemplo GitHub Actions (esqueleto)
+[source,yaml]
+----
+name: CI
+on: [push, pull_request]
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '18' }
+      - run: npm ci
+      - run: npm run type-check
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+----
+
+=== Scripts recomendados en `package.json`
+[source,json]
+----
+{"scripts": {
+  "build": "tsc -p .",
+  "type-check": "tsc --noEmit",
+  "lint": "eslint 'src/**/*.{ts,tsx}' --max-warnings=0",
+  "test": "vitest"
+}}
+----
+
+=== Diagnóstico y comandos útiles
+- `tsc --noEmit` — validar tipos sin generar artefactos.
+- `eslint src --ext .ts,.tsx` — linting.
+- `vitest --run` o `jest --ci` — ejecutar tests en CI.
+- `tsc --traceResolution` — resolver problemas de imports/paths.
+
+=== Rendimiento y caching
+- Usa `--incremental` y `.tsbuildinfo` para compilar más rápido.
+- CI: cachea `.tsbuildinfo` junto a `node_modules` cuando sea apropiado.
+
+=== Buenas prácticas y antipatterns
+- No confiar únicamente en pruebas: combina `type-check` + lint + tests. ✅
+- Evita reglas ESLint que solo aplican a estilos personales sin consenso del equipo. ⚠️
+- Mantén tests rápidos y deterministas; separa e2e del unit/integ.
+
+=== Ejercicios prácticos (clase / tarea)
+- Ejercicio 1: Añadir `eslint` + `prettier` a un proyecto y configurar `lint-staged` con `husky`.
+- Ejercicio 2: Configurar `vitest`, escribir tests para un módulo y ejecutar en CI.
+- Ejercicio 3: Añadir `tsc --noEmit` al pipeline de CI y configurar cache para `.tsbuildinfo`.
+- Ejercicio 4: Comparar tiempo de build entre `tsc` y `esbuild` para un ejemplo y documentar conclusiones.
+- Ejercicio 5: Crear un workflow de GitHub Actions que ejecute `type-check`, `lint`, `test` y build (comprobar caché).
+
+
+== Módulo 11 — Integración práctica: Frontend y Backend (1.5h)
+=== Contexto práctico
+Este módulo muestra cómo aplicar TypeScript en un flujo real: definir contratos compartidos, validar entradas en el backend y consumir APIs desde un frontend tipado. Reducirás errores de integración y mejorarás el feedback en tiempo de compilación.
+
+=== React: componentes, hooks y patterns tipados
+==== Props y componentes funcionales
+- Tipar `props` ayuda a detectar cambios en la API del componente y mejora la experiencia en el editor.
+[source,tsx]
+----
+// Contexto: componente React sencillo que recibe un `User` tipado desde props.
+// src/components/UserCard.tsx
+import React from 'react';
+
+type User = { id: string; name: string; email?: string };
+export function UserCard({ user }: { user: User }) {
+  return <div>{user.name}{user.email ? ` (${user.email})` : ''}</div>;
+}
+
+// Uso en un componente padre
+export function App() {
+  const u: User = { id: '1', name: 'Ana', email: 'a@x.com' };
+  return <UserCard user={u} />;
+}
+----
+
+==== useState / useReducer con genéricos
+- Usa `useState<T>` y `useReducer<S, A>` para conservar la inferencia y hacer explícitos los contratos de estado.
+[source,ts]
+----
+const [user, setUser] = useState<User | null>(null);
+
+type State = { loading: boolean; data?: User };
+type Action = { type: 'start' } | { type: 'done'; payload: User };
+const reducer: Reducer<State, Action> = (s, a) => {
+  switch (a.type) {
+    case 'start': return { loading: true };
+    case 'done': return { loading: false, data: a.payload };
+  }
+};
+----
+
+==== Refs, forwardRef y eventos
+- Tipar `useRef<HTMLInputElement | null>` y formularios (`React.FormEvent<HTMLFormElement>`) evita errores comunes.
+[source,tsx]
+----
+const inputRef = useRef<HTMLInputElement | null>(null);
+const FancyInput = forwardRef<HTMLInputElement, { value: string }>((props, ref) => (
+  <input ref={ref} defaultValue={props.value} />
+));
+----
+
+==== Hooks personalizados para llamadas tipadas
+- Encapsula llamadas HTTP en hooks genéricos (`apiGet<T>`) para propagar tipos al componente consumidor.
+[source,ts]
+----
+async function apiGet<T>(url: string): Promise<T> {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(res.statusText);
+  return res.json() as Promise<T>;
+}
+
+function useApiUser(id: string) {
+  const [user, setUser] = useState<User | null>(null);
+  useEffect(() => { apiGet<User>(`/api/users/${id}`).then(setUser).catch(console.error); }, [id]);
+  return user;
+}
+----
+
+=== Backend: tipado, validación y errores
+==== DTOs y validación en runtime (zod)
+- Aunque TS da seguridad en compile-time, validar entradas en runtime es obligatorio. `zod` permite declarar schemas y derivar tipos con `z.infer`.
+[source,ts]
+----
+import { z } from 'zod';
+const CreateUser = z.object({ name: z.string().min(1), email: z.string().email().optional() });
+type CreateUserDTO = z.infer<typeof CreateUser>;
+type User = { id: string; name: string; email?: string };
+----
+
+==== Ruta Express tipada (Request/Response generics)
+- Tipar parámetros, body y respuesta mejora la seguridad en handlers y middlewares.
+[source,ts]
+----
+// Contexto: servidor Express minimal con validación `zod` y almacenamiento en memoria.
+import express, { Request, Response } from 'express';
+import { z } from 'zod';
+
+const app = express();
+app.use(express.json());
+
+const CreateUser = z.object({ name: z.string().min(1), email: z.string().email().optional() });
+type CreateUserDTO = z.infer<typeof CreateUser>;
+
+type User = { id: string; name: string; email?: string };
+const db: User[] = [];
+
+app.post('/api/users', (req: Request<{}, {}, CreateUserDTO>, res: Response<User | { error: string }>) => {
+  const parsed = CreateUser.safeParse(req.body);
+  if (!parsed.success) return res.status(400).json({ error: parsed.error.message });
+  const user: User = { id: String(Date.now()), ...parsed.data };
+  db.push(user);
+  return res.status(201).json(user);
+});
+
+app.get('/api/users', (_req, res) => res.json(db));
+
+app.listen(3000, () => console.log('server running on http://localhost:3000'));
+----
+
+==== Manejo de errores y middlewares tipados
+- Define una forma estándar para errores (p. ej. `{ message: string; code?: string }`) y tipa el middleware de error para generar respuestas coherentes.
+
+=== Compartir tipos y contratos
+==== Estrategias de compartición
+- Paquete `packages/shared` (monorepo) que exporta DTOs y tipos públicos.
+- `paths` en `tsconfig` para alias locales cuando no hay monorepo.
+- Generar tipos desde OpenAPI/GraphQL para evitar divergencias.
+
+[source,json]
+----
+{ "compilerOptions": { "baseUrl": ".", "paths": { "@shared/*": ["packages/shared/src/*"] } } }
+----
+
+==== OpenAPI → types (comando práctico)
+- Generar tipos: `npx openapi-typescript openapi.yaml --output src/types/api-types.ts`.
+- Ventaja: el cliente y el servidor comparten la misma especificación.
+
+==== Versionado y compatibilidad
+- Cambios no rompientes → versionado menor/patch; breaking changes → major o nueva ruta.
+- Publica paquetes `types`-only con su propio semver para alineación entre equipos.
+
+=== Buenas prácticas rápidas
+- Validar en el backend aun si el cliente está tipado.
+- Compartir DTOs públicos, no tipos de implementación.
+- Mantener transformaciones (DTO → Entity) explícitas.
+
+=== Ejercicios prácticos (clase / tarea)
+- Ejercicio 1 — Endpoint tipado + validación:
+  - Implementa `POST /api/users` con `zod`, guarda en memoria y devuelve `User` tipado. Añade tests con `vitest` (validación y casos felices).
+
+- Ejercicio 2 — Cliente React tipado:
+  - Crea `UserForm` que envíe `CreateUserDTO` y `UserList` que consuma `GET /api/users` usando `apiGet<T>`. Reutiliza tipos desde un módulo compartido.
+
+- Ejercicio 3 — Compartir tipos (práctico):
+  - Extrae `User` y `CreateUserDTO` a `packages/shared` o `src/shared`; configura `paths` y verifica compilación en cliente y servidor.
+
+- Ejercicio 4 — Generación desde OpenAPI (avanzado):
+  - Documenta el endpoint en OpenAPI y genera tipos con `openapi-typescript`; comprueba que el cliente compile sin `any`.
+
+---
+
+
+== Módulo 12 — Proyecto final, buenas prácticas y migración incremental (1.5h)
+
+=== Contexto y propósito
+Este módulo reúne todo lo aprendido: planificar una migración incremental desde JavaScript, aplicar buenas prácticas de arquitectura tipada y entregar un proyecto final que demuestre calidad, pruebas y contratos bien definidos. Se trabaja tanto la técnica (herramientas, flags de compilador, optimizaciones) como la disciplina de diseño (boundary-driven design, DTOs, transformaciones explícitas).
+
+=== Migración desde JavaScript (estrategia práctica)
+==== Estrategia por fases (recomendado)
+- Auditoría inicial: detectar módulos críticos, dependencias sin tipos y puntos de entrada del dominio.
+- Validación sin convertir: activar `allowJs + checkJs` y ejecutar `tsc --noEmit` para ver el estado actual.
+- Migración por capas: convertir primero la capa de dominio/core, luego servicios y por último UI/tests.
+- Añadir tests antes de convertir cada módulo: facilita detectar regresiones.
+- Habilitar `strict` progresivamente por paquetes (o directorios) y convertir errores en tareas.
+
+==== Configuración práctica para migración incremental
+[source,json]
+----
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
+    "incremental": true,
+    "tsBuildInfoFile": ".tsbuildinfo",
+    "skipLibCheck": true  // temporal durante migración
+  },
+  "include": ["src/**/*", "lib/**/*"]
+}
+----
+
+Comandos útiles:
+- `npx tsc --noEmit` — chequeo rápido sin generar artefactos.
+- `npx ts-migrate migrate <carpeta>` — automatiza pasos básicos de conversión (útil en monorepos).
+- `jscodeshift` / codemods — para cambios repetitivos (p. ej. transformar `module.exports` → `export`).
+
+==== Ejemplo: migrar un fichero pequeño
+[source,js]
+----
+// utils/format.js (antes)
+function formatName(user) { return user.name.toUpperCase(); }
+module.exports = { formatName };
+----
+
+[source,ts]
+----
+// src/utils/format.ts (después)
+export type User = { name: string };
+export function formatName(user: User): string { return user.name.toUpperCase(); }
+----
+
+==== Herramientas y ayudas
+- `ts-migrate`, `jscodeshift`, `eslint --fix` y `prettier` para automatizar pasos repetitivos.
+- Añadir JSDoc en código legacy para que TS infiera tipos antes de la conversión completa.
+
+=== Estrategias para repos grandes y monorepos
+- Usar `project references` y `composite` para compilar por paquetes y acelerar los builds (`tsc -b`).
+- Extraer tipos compartidos a `packages/shared` y versionarlos independientemente.
+- Migrar en ramas/PRs pequeñas y con CI que ejecute `tsc --noEmit` y tests.
+
+[source,json]
+----
+// packages/app/tsconfig.json (ejemplo de referencia)
+{ "compilerOptions": { "composite": true }, "references": [{ "path": "../shared" }] }
+----
+
+=== Buenas prácticas y arquitectura tipada
+==== Boundaries y separación de capas
+- Define boundaries claros: `domain` (modelos, lógica), `application` (casos de uso), `infrastructure` (DB, HTTP) y `presentation` (UI).
+- Mantén DTOs explícitos para la entrada/salida de las capas; evita exponer entidades internas a la API pública.
+
+==== DTO → Entity (transformaciones explícitas)
+[source,ts]
+----
+type CreateUserDTO = { name: string; email?: string };
+type UserEntity = { id: string; name: string; email?: string; createdAt: string };
+
+function toEntity(dto: CreateUserDTO): UserEntity {
+  return { id: String(Date.now()), createdAt: new Date().toISOString(), ...dto };
+}
+----
+
+==== Validación runtime vs compile-time
+- Los tipos TypeScript son valiosos, pero la validación en runtime (p. ej. `zod`) es obligatoria en entradas externas.
+- Derivar tipos estáticos desde schemas (`z.infer<>`) reduce la duplicación y evita divergencias.
+
+=== Performance y optimización de compilación
+- Habilita `incremental` y cachea `.tsbuildinfo` en CI para builds rápidos.
+- `skipLibCheck` puede ayudar temporalmente, pero no debe ser la solución final.
+- Reduce la carga de `tsserver`: excluir carpetas grandes (`node_modules`, `dist`) y activar `files.exclude`/`exclude` en `tsconfig`.
+- Usa `project references` para paralelizar compilaciones en monorepos.
+
+Comandos y configuración rápida:
+[source,console]
+----
+# tipo-check rápido
+npx tsc --noEmit
+# build por paquetes (monorepo)
+npx tsc -b packages/*
+----
+
+=== Calidad del código y prácticas de entrega
+- Mantén `strict: true` en paquetes nuevos; limita `any` y documenta excepciones.
+- Linting + Prettier + `lint-staged` para calidad en commits.
+- Pruebas unitarias y de integración con coverage mínimo acordado (ej.: 70%).
+- CI: `type-check`, `lint`, `test` y `build` como pasos obligatorios.
+
+=== Proyecto final — entregables (checklist)
+- Código fuente en un repo público/privado con commits claros.
+- `README.md` con instrucciones para ejecutar, testear y desplegar.
+- `package.json` con scripts: `build`, `type-check`, `test`, `lint`.
+- Tests automáticos (unit + integración) y `vitest`/`jest` configurado.
+- CI configurado (GitHub Actions) que ejecute `type-check` + `lint` + `test`.
+- Demo o captura de pantalla y explicación de decisiones arquitectónicas.
+
+=== Criterios de entrega y rúbrica (sugerida)
+[cols="20,60,20",options="header"]
+|===
+| Criterio | Descripción | Peso
+| Tipado y corrección | El proyecto compila sin `--noEmit`, no hay `any` no justificados y la API pública está tipada | 30%
+| Tests & Calidad | Tests pasan, cobertura mínima alcanzada y casos esenciales testeados | 25%
+| Arquitectura y diseño | Boundaries claros, DTOs/Entities separados, separación de responsabilidades | 20%
+| CI / Lint / Build | Pipeline que valida tipo/lint/tests y build reproducible | 15%
+| Documentación & Demo | README, instrucciones y demo funcional (o capturas) | 10%
+|===
+
+=== Ejercicios prácticos (clase / tarea)
+- Ejercicio 1 — Migración incremental: toma un módulo JS y conviértelo a TS usando `allowJs`/`checkJs`, añade tests y habilita `strict` para ese módulo.
+- Ejercicio 2 — DTOs y validación: crea `CreateOrderDTO`, valida con `zod`, transforma a `OrderEntity` y añade tests de integridad.
+- Ejercicio 3 — Optimización de build: configura `incremental` y `tsBuildInfoFile`, mide tiempo de compilación antes/después y documenta mejoras.
+- Ejercicio 4 — Proyecto final (mini-entrega): implementa una API pequeña (CRUD) + cliente React consumiéndola, comparte tipos y entrega CI + tests.
+
+---

@@ -1,0 +1,76 @@
+# .gitignore para proyecto Node + TypeScript
+
+# Dependencias
+node_modules/
+
+# Salidas de build
+dist/
+build/
+out/
+lib/
+esm/
+cjs/
+
+# TypeScript incremental build info
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# Tests / cobertura
+coverage/
+.nyc_output/
+coverage-final.json
+lcov-report/
+
+# Cachés y archivos temporales
+.cache/
+.parcel-cache/
+.vitest/
+.jest/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# Entornos / secretos locales
+.env
+.env.*.local
+
+# Editor / IDE
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+.history/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Herramientas y otros
+.eslintcache
+.node_repl_history
+*.tgz
+*.zip
+
+# Ignorar archivos de build generados por bundlers/frameworks (por si acaso)
+.next/
+.nuxt/
+.vite/
+
+# Archivos generados por TypeScript (evita commitear compilados junto a los .ts)
+# - Ignorar .js y mapas en paquetes / ejemplos / tests donde tsc puede emitir archivos
+# - No se ignoran archivos JS intencionalmente versionados en la raíz (ej. `sample.js`)
+patterns/**/*.js
+patterns/**/*.js.map
+examples/**/*.js
+examples/**/*.js.map
+tests/**/*.js
+tests/**/*.js.map
+
+# Ignorar mapas JS globalmente
+**/*.js.map
