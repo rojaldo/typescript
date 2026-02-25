@@ -31,7 +31,7 @@ El testing automático es el proceso de escribir código que verifica automátic
 ==== Beneficios del Testing
 
 [cols="1,2"]
-====
+|===
 | Beneficio | Descripción
 
 | *Confianza* | Seguridad de que el código funciona como se espera
@@ -42,7 +42,7 @@ El testing automático es el proceso de escribir código que verifica automátic
 | *Refactoring* | Libertad para mejorar código sin miedo a romper cosas
 | *Mantenibilidad* | Código más limpio y fácil de entender
 | *Calidad* | Reducción de bugs en producción
-====
+|===
 
 ==== Tipos de Testing
 
@@ -248,13 +248,13 @@ Un caso de prueba es una especificación de un comportamiento que tu código deb
 .Estructura de un buen caso de prueba:
 
 [cols="1,3"]
-====
+|===
 | Componente | Descripción
 
 | *Setup/Arrange* | Preparar los datos necesarios
 | *Action/Act* | Ejecutar el código a probar
 | *Assertion/Assert* | Verificar el resultado esperado
-====
+|===
 
 .Ejemplo completo (AAA Pattern):
 [source,typescript]
@@ -289,7 +289,7 @@ Una aserción es una verificación booleana que debe ser verdadera. Si es falsa,
 .Tipos comunes de aserciones:
 
 [cols="1,2,2"]
-====
+|===
 | Tipo | Ejemplo | Propósito
 
 | *Igualdad* | `assert.equal(actual, esperado)` | Verificar valores iguales
@@ -298,7 +298,7 @@ Una aserción es una verificación booleana que debe ser verdadera. Si es falsa,
 | *Falsedad* | `assert.strictEqual(valor, false)` | Verificar que es falsy
 | *Inclusión* | `assert(array.includes(item))` | Verificar si contiene
 | *Excepción* | `assert.throws(() => fn())` | Verificar que lanza error
-====
+|===
 
 .Eje=mplo de aserciones:
 [source,typescript]
@@ -343,14 +343,14 @@ Las fixtures son datos o estados preparados que usa tu test. Son útiles para ev
 .Tipos de fixtures:
 
 [cols="1,3"]
-====
+|===
 | Tipo | Uso
 
 | *Fixture estática* | Datos fijos en archivos (JSON, etc.)
 | *Fixture dinámica* | Datos generados en setup
 | *Factory functions* | Funciones que crean objetos de prueba
 | *Fixtures con hooks* | Preparación con before/beforeEach
-====
+|===
 
 .Ejemplo sin fixtures (Código repetido):
 [source,typescript]
@@ -523,14 +523,14 @@ describe('Mock de Log', () => {
 El code coverage mide qué porcentaje de tu código está siendo ejecutado por los tests.
 
 [cols="1,2,1"]
-====
+|===
 | Tipo | Descripción | Meta
 
 | *Statement* | Líneas de código ejecutadas | 80%+
 | *Branch* | Caminos condicionales cubiertos | 75%+
 | *Function* | Funciones llamadas en tests | 80%+
 | *Line* | Líneas específicas ejecutadas | 80%+
-====
+|===
 
 .Ejemplo - Función sin cobertura completa:
 [source,typescript]
@@ -602,13 +602,13 @@ Mocha es un framework de testing moderno y flexible para JavaScript/TypeScript q
 Antes de instalar Mocha, verifica tus versiones:
 
 [cols="1,2,3"]
-====
+|===
 | Herramienta | Versión Mínima | Recomendada
 
 | Node.js | 14.x | 18.x o superior
 | npm | 6.x | 9.x o superior
 | yarn | 1.x | 3.x o superior
-====
+|===
 
 .Verificar tu versión de Node.js:
 [source,bash]
@@ -687,7 +687,7 @@ yarn mocha --version
 ==== Instalación Local vs Global
 
 [cols="1,2,2"]
-====
+|===
 | Aspecto | Local (Recomendado) | Global
 
 | Comando | `npx mocha` | `mocha`
@@ -696,7 +696,7 @@ yarn mocha --version
 | Equipo | Consistente en todo el equipo | Puede variar por PC
 | Control | Fácil de actualizar en proyecto | Más difícil de controlar
 | Reproducibilidad | Alta (mismo en CI/CD) | Baja (pueden diferir versiones)
-====
+|===
 
 .Mej=or práctica: Instala siempre localmente
 [source,bash]
@@ -790,14 +790,14 @@ El archivo `package.json` es el punto central de configuración de tu proyecto N
 .Scripts comunes:
 
 [cols="1,2,2"]
-====
+|===
 | Script | Comando | Propósito
 
 | `test` | `npm test` | Ejecutar tests
 | `test:watch` | `npm run test:watch` | Ejecutar en modo observación
 | `test:coverage` | `npm run test:coverage` | Generar reporte de cobertura
 | `test:debug` | `npm run test:debug` | Debuggear tests
-====
+|===
 
 .Ejecutar scripts:
 [source,bash]
@@ -815,14 +815,14 @@ Para configuraciones más complejas, puedes crear un archivo de configuración d
 .Opciones disponibles:
 
 [cols="1,3"]
-====
+|===
 | Formato | Archivo
 
 | JSON | `.mocharc.json`
 | YAML | `.mocharc.yaml`
 | JavaScript | `.mocharc.js`
 | Heredado | `test/mocha.opts`
-====
+|===
 
 .Ejemplo .mocharc.json:
 [source,json]
@@ -840,7 +840,7 @@ Para configuraciones más complejas, puedes crear un archivo de configuración d
 
 .Explicación de opciones:
 [cols="1,3"]
-====
+|===
 | Opción | Descripción
 
 | `require` | Módulos a cargar antes de ejecutar tests
@@ -850,7 +850,7 @@ Para configuraciones más complejas, puedes crear un archivo de configuración d
 | `slow` | Tiempo para marcar test como lento en ms (300ms)
 | `reporter` | Formato de reporte (spec, json, tap, etc.)
 | `ui` | Estilo de interfaz (bdd, tdd, qunit)
-====
+|===
 
 .Ejemplo .mocharc.js:
 [source,javascript]
@@ -1065,7 +1065,7 @@ Tu archivo `tsconfig.json` controla cómo se compila TypeScript.
 
 .Explicación de opciones:
 [cols="1,3"]
-====
+|===
 | Opción | Descripción
 
 | `target` | Versión de JavaScript objetivo
@@ -1074,7 +1074,7 @@ Tu archivo `tsconfig.json` controla cómo se compila TypeScript.
 | `sourceMap` | Mapeos para debugging
 | `skipLibCheck` | No verificar archivos .d.ts
 | `esModuleInterop` | Compatibilidad con módulos ES6
-====
+|===
 
 ===== Sourcemaps para Debugging
 
@@ -1261,7 +1261,7 @@ npm test
 ==== Troubleshooting Común
 
 [cols="1,2,3"]
-====
+|===
 | Problema | Causa | Solución
 
 | `Cannot find module 'ts-node'` | ts-node no está instalado | `npm install --save-dev ts-node`
@@ -1269,7 +1269,7 @@ npm test
 | `Timeout error` | Test toma más de 5s | Aumentar timeout en .mocharc.json
 | `Sourcemap error` | SourceMap no generado | Habilitar `sourceMap: true` en tsconfig.json
 | `Module not found` | Ruta incorrecta | Verificar paths en tsconfig.json
-====
+|===
 
 ---
 
@@ -1460,13 +1460,13 @@ describe('Async/Await', () => {
 .Comparación de estilos:
 
 [cols="1,1,3"]
-====
+|===
 | Estilo | Uso | Ventajas
 
 | *Callback* | Código muy viejo | Compatible con cualquier navegador
 | *Promise* | Código moderno | Mejor que callbacks
 | *Async/Await* | Recomendado | Más legible, más fácil de entender
-====
+|===
 
 .Ejemplo práctico con API:
 [source,typescript]
@@ -1694,13 +1694,13 @@ before(function(done) {
 .Tabla de timeouts:
 
 [cols="1,2,3"]
-====
+|===
 | Contexto | Timeout por defecto | Se puede cambiar
 
 | Test | 2000ms | Sí
 | Hook | 2000ms | Sí
 | Async hook | 2000ms | Sí
-====
+|===
 
 ==== Orden de Ejecución
 
@@ -1967,7 +1967,7 @@ describe('Sincronización de Datos', () => {
 ==== Tabla de Control de Ejecución
 
 [cols="1,2,3,2"]
-====
+|===
 | Función | Propósito | Scope | Resultado
 
 | `it.skip()` | Omitir test | Test individual | Marcado como pendiente
@@ -1976,7 +1976,7 @@ describe('Sincronización de Datos', () => {
 | `describe.only()` | Ejecutar solo suite | Suite | Solo esta se ejecuta
 | `this.retries(n)` | Reintentar n veces | Test individual | Se reintenta si falla
 | `this.timeout(ms)` | Establecer timeout | Test/Hook | Error si excede tiempo
-====
+|===
 
 ===== Ejemplo Completo: Control de Ejecución
 
@@ -2292,18 +2292,18 @@ describe('assert.rejects()', () => {
 ==== Tabla de Assert Nativos
 
 [cols="1,2,3,2"]
-====
+|===
 | Función | Propósito | Ejemplo | Usa
 
 | `assert.equal()` | Igualdad flexible | `assert.equal(5, '5')` | == (coerción)
- `assert.strictEqual()` | Igualdad estricta | `assert.strictEqual(5, 5)` | === (sin coerción)
+| `assert.strictEqual()` | Igualdad estricta | `assert.strictEqual(5, 5)` | === (sin coerción)
 | `assert.notEqual()` | Desigualdad flexible | `assert.notEqual(5, 6)` | !=
 | `assert.notStrictEqual()` | Desigualdad estricta | `assert.notStrictEqual(5, '5')` | !==
 | `assert.ok()` | Verificar truthy | `assert.ok(true)` | Booleano
 | `assert.throws()` | Error síncrono | `assert.throws(() => fn())` | Excepciones
 | `a=ssert.rejects()` | Error asíncrono | `await assert.rejects(promise)` | Promises
 | `assert.deepEqual()` | Objetos iguales | `assert.deepEqual({a:1}, {a:1})` | Profundo
-====
+|===
 
 ---
 
@@ -2329,12 +2329,12 @@ npm install --save-dev chai @types/chai
 Chai soporta dos estilos: BDD (expect/should) y TDD (assert).
 
 [cols="1,2,3"]
-====
+|===
 | Estilo | Sintaxis | Popularidad
 
 | *BDD* | `expect()` o `should` | Muy popular, legible
 | *TDD* | `assert` | Tradicional, menos común
-====
+|===
 
 ==== BDD Style: expect()
 
@@ -2521,7 +2521,7 @@ describe('Chai - TDD Style assert', () => {
 ==== Comparencia Chai vs Assert Nativo
 
 [cols="1,2,2"]
-====
+|===
 | Característica | Assert Nativo | Chai
 
 | *Mensajes de error* | Básicos | Muy descriptivos
@@ -2530,12 +2530,12 @@ describe('Chai - TDD Style assert', () => {
 | *Funciones avanzadas* | Limitadas | Muchas
 | *Tamaño* | 1KB | ~20KB
 | *Curva de aprendizaje* | Baja | Media
-====
+|===
 
 ===== Principales Aserciones de Chai
 
 [cols="1,2"]
-====
+|===
 | Aserción | Ejemplo
 
 | *Igualdad* | `expect(5).to.equal(5)` / `expect(5).to.eql(5)`
@@ -2549,7 +2549,7 @@ describe('Chai - TDD Style assert', () => {
 | *E=xcepciones* | `expect(() => fn()).to.throw(Error)`
 | *Propiedades* | `expect({a:1}).to.have.property('a')`
 | *Existencia* | `expect(val).to.exist`
-====
+|===
 
 ---
 
@@ -2809,7 +2809,7 @@ describe('Comparación: assert vs chai', () => {
 ==== Tabla Resumen de Aserciones Avanzadas
 
 [cols="1,2,2"]
-====
+|===
 | Característica | Assert Nativo | Chai
 
 | *Validar excepción* | `assert.throws()` | `expect(() => fn()).to.throw()`
@@ -2817,9 +2817,9 @@ describe('Comparación: assert vs chai', () => {
 | *Mensaje personalizado* | Segundo parámetro | Segundo parámetro en expect
 | *Validar estructura* | `assert.deepEqual()` | `expect(obj).to.deep.equal()`
 | *Validar inclusión* | `assert.ok(arr.includes())` | `expect(arr).to.include()`
- *Validar tipo* | `assert.ok(typeof x === 'number')` | `expect(x).to.be.a('number')`
+| *Validar tipo* | `assert.ok(typeof x === 'number')` | `expect(x).to.be.a('number')`
 | *Legibilidad* | Media | Alta
-====
+|===
 
 ==== Ejemplo Práctico Completo
 
@@ -3028,7 +3028,7 @@ describe('Funciones Puras', () => {
 Los tests deben verificar diferentes tipos de parámetros y casos borde.
 
 [cols="1,2"]
-====
+|===
 | Tipo de Parámetro | Casos a Testear
 
 | *Números* | Positivos, negativos, cero, decimales, NaN, Infinity
@@ -3037,7 +3037,7 @@ Los tests deben verificar diferentes tipos de parámetros y casos borde.
 | *Objetos* | Vacío, incompleto, extra keys, null
 | *Booleanos* | true, false
 | *null/undefined* | Ambos casos
-====
+|===
 
 .Eje=mplo: Testing exhaustivo
 [source,typescript]
@@ -3998,13 +3998,13 @@ npm install --save-dev @types/sinon  # Para TypeScript
 ==== Diferencia: Spies, Stubs y Mocks
 
 [cols="1,2,3,2"]
-====
+|===
 | Herramienta | Propósito | Usa | Verifica
 
 | *Spy* | Observar | Función original | Cómo se llamó
 | *Stub* | Reemplazar | Implementación fake | Cómo se llamó + Control
 | *Mock* | Afirmar | Implementación fake | Llamadas + Comportamiento
-====
+|===
 
 .Cuándo usar cada uno:
 - **Spy**: Quieres ver cómo se utiliza una función sin cambiar su comportamiento
@@ -4170,7 +4170,7 @@ Información detallada sobre todas las llamadas.
 
 .Tabla de propiedades útiles:
 [cols="1,2"]
-====
+|===
 | Propiedad | Descripción
 
 | `spy.called` | ¿Se llamó al menos una vez?
@@ -4183,7 +4183,7 @@ Información detallada sobre todas las llamadas.
 | `spy.lastCall` | Última llamada (objeto Call)
 | `s=py.getCall(n)` | Obtener n-ésima llamada
 | `spy.getCalls()` | Todas las llamadas
-====
+|===
 
 .Ejemplo:
 [source,typescript]
@@ -4502,7 +4502,7 @@ describe('Sinon Mocks - Aserciones Integradas', () => {
 Tabla de métodos de expectativas:
 
 [cols="1,2"]
-====
+|===
 | Método | Descripción
 
 | `.once()` | Debe llamarse exactamente una vez
@@ -4516,7 +4516,7 @@ Tabla de métodos de expectativas:
 | `.=returns(value)` | Retorna un valor específico
 | `.throws(error)` | Lanza un error específico
 | `.verify()` | Verifica que se cumplieron todas las expectativas
-====
+|===
 
 .Ejemplo completo:
 [source,typescript]
@@ -4686,13 +4686,13 @@ describe('CarritoCompras - Spies, Stubs y Mocks', () => {
 ==== Cuándo Usar Cada Uno
 
 [cols="1,2,3"]
-====
+|===
 | Herramienta | Cuándo Usar | Beneficio
 
 | *Spy* | Monitorear función real | Verifica intera acciones sin interferir
 | *Stub* | Reemplazar dependencia | Control total, aisla código de test
 | *Mock* | Verificar comportamiento | Aserciones integradas, expresa intención
-====
+|===
 
 ---
 
@@ -6662,7 +6662,7 @@ mocha --reporter <nombre>
 
 .Reporters disponibles:
 [cols="1,2"]
-====
+|===
 | Reporter | Descripción
 
 | `spec` | Formato jerárquico detallado (por defecto)
@@ -6674,7 +6674,7 @@ mocha --reporter <nombre>
 | `markdown` | Output en formato Markdown
 | `min` | Mínimo, solo resumen
 | `l=anding` | Animación de "landing"
-====
+|===
 
 ==== Spec Reporter (Por Defecto)
 
@@ -6852,7 +6852,7 @@ Un reporter es una clase que extiende de EventEmitter y responde a eventos de Mo
 
 .Eventos principales:
 [cols="1,2"]
-====
+|===
 | Evento | Se dispara cuando...
 
 | `start` | Comienzan todos los tests
@@ -6862,7 +6862,7 @@ Un reporter es una clase que extiende de EventEmitter y responde a eventos de Mo
 | `fail` | Un test falló
 | `pending` | Un test está pendiente
 | `end` | Finalizan todos los tests
-====
+|===
 
 .Ejemplo básico:
 [source,typescript]
@@ -7432,14 +7432,14 @@ Code coverage responde: "¿Qué porcentaje de mi código ha sido ejecutado duran
 
 .Tipos de coverage:
 [cols="1,2,2"]
-====
+|===
 | Tipo | Qué mide | Ejemplo
 
 | *Statement* | % de sentencias ejecutadas | `const x = 5;` se ejecutó
 | *Branch* | % de caminos condicionales | `if (x > 5)` se evaluó true y false
 | *Function* | % de funciones llamadas | `sumar()` fue invocada
 | *Line* | % de líneas ejecutadas | Línea 42 se ejecutó
-====
+|===
 
 ==== Instalación de NYC
 
@@ -7989,7 +7989,7 @@ No siempre es posible (ni deseable) alcanzar 100% coverage.
 
 .Estrategia recomendada:
 [cols="1,2,3"]
-====
+|===
 | Tipo de código | Coverage | Razón
 
 | Lógica crítica | 90-100% | Errores aquí son costosos
@@ -7997,7 +7997,7 @@ No siempre es posible (ni deseable) alcanzar 100% coverage.
 | Utilidades | 80-90% | Cobertura razonable
 | UI/Controllers | 70-80% | Cambios frecuentes
 | Código generado | <50% | Costo-beneficio bajo
-====
+|===
 
 .Configurar thresholds reales:
 [sou=rce,json]
@@ -8309,14 +8309,14 @@ describe('API - Request Builder', () => {
 Tabla de assertions comunes:
 
 [cols="1,2"]
-====
+|===
 | Método | Qué valida
 
 | `.expect(status)` | Status HTTP (200, 404, 500, etc.)
 | `.expect(status, body)` | Status y body exacto
 | `.expect(campo, valor)` | Propiedad del response body
 | `.expect(fn)` | Custom assertion function
-====
+|===
 
 .Ejemplos:
 [source,typescript]
@@ -8367,7 +8367,7 @@ Validar status y headers HTTP.
 
 .Tabla de status comunes:
 [cols="1,2"]
-====
+|===
 | Status | Significado
 
 | 200 | OK - Éxito
@@ -8378,7 +8378,7 @@ Validar status y headers HTTP.
 | 403 | Forbidden - Sin permisos
 | 404 | Not Found - Recurso no existe
 | 500 | Server Error - Error del servidor
-====
+|===
 
 .Ejemplos:
 [source,typescript]
@@ -9362,14 +9362,14 @@ describe('Calculadora', () => {
 **Convenciones:**
 
 [cols="1,2"]
-====
+|===
 | Patrón | Ejemplo
 
 | Describe | Nombre de clase/función: `describe('Calculadora', ...)`
 | It/Test | Comportamiento esperado: `it('debe sumar números positivos', ...)`
 | Archivo | `calculadora.test.ts` (plural: tests, singular: test okay)
 | Variables | `usuarioValido`, `respuestaConError`, `datosMock`
-====
+|===
 
 ==== DRY (Don't Repeat Yourself) en Tests
 
@@ -9602,7 +9602,7 @@ it('debe incrementar contador después de cada llamada', () => {});
 Formula útil: `"debe [acción] cuando [condición]"`
 
 [cols="1,2"]
-====
+|===
 | Patrón | Ejemplo
 
 | Valor positivo | "debe retornar suma correcta"
@@ -9610,7 +9610,7 @@ Formula útil: `"debe [acción] cuando [condición]"`
 | Límite | "debe manejar strings vacíos"
 | Lado efecto | "debe actualizar base de datos"
 | Performance | "debe completarse en menos de 100ms"
-====
+|===
 
 ==== AAA Pattern: Arrange, Act, Assert
 

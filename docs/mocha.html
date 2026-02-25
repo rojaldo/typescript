@@ -598,23 +598,52 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="sect3">
 <h4 id="_beneficios_del_testing"><a class="link" href="#_beneficios_del_testing">Beneficios del Testing</a></h4>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>| Beneficio | Descripción</p>
-</div>
-<div class="paragraph">
-<p>| <strong>Confianza</strong> | Seguridad de que el código funciona como se espera
-| <strong>Regresiones</strong> | Detección inmediata de cambios no deseados
-| <strong>Documentación</strong> | Los tests actúan como ejemplos de uso
-| <strong>Diseño</strong> | Mejora el diseño del código (más modular y testeable)
-| <strong>Velocidad</strong> | Feedback inmediato sin necesidad de pruebas manuales
-| <strong>Refactoring</strong> | Libertad para mejorar código sin miedo a romper cosas
-| <strong>Mantenibilidad</strong> | Código más limpio y fácil de entender
-| <strong>Calidad</strong> | Reducción de bugs en producción</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Beneficio</th>
+<th class="tableblock halign-left valign-top">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Confianza</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Seguridad de que el código funciona como se espera</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Regresiones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Detección inmediata de cambios no deseados</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Documentación</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Los tests actúan como ejemplos de uso</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Diseño</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mejora el diseño del código (más modular y testeable)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Velocidad</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Feedback inmediato sin necesidad de pruebas manuales</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Refactoring</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Libertad para mejorar código sin miedo a romper cosas</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Mantenibilidad</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Código más limpio y fácil de entender</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Calidad</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reducción de bugs en producción</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="_tipos_de_testing"><a class="link" href="#_tipos_de_testing">Tipos de Testing</a></h4>
@@ -902,19 +931,33 @@ class Calculadora {
 <div class="paragraph">
 <p>Un caso de prueba es una especificación de un comportamiento que tu código debe tener. Cada test verifica una acción específica.</p>
 </div>
-<div class="exampleblock">
-<div class="title">Example 1. Estructura de un buen caso de prueba:</div>
-<div class="content">
-<div class="paragraph">
-<p>| Componente | Descripción</p>
-</div>
-<div class="paragraph">
-<p>| <strong>Setup/Arrange</strong> | Preparar los datos necesarios
-| <strong>Action/Act</strong> | Ejecutar el código a probar
-| <strong>Assertion/Assert</strong> | Verificar el resultado esperado</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Estructura de un buen caso de prueba:</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Componente</th>
+<th class="tableblock halign-left valign-top">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Setup/Arrange</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Preparar los datos necesarios</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Action/Act</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ejecutar el código a probar</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Assertion/Assert</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verificar el resultado esperado</p></td>
+</tr>
+</tbody>
+</table>
 <div class="listingblock">
 <div class="title">Ejemplo completo (AAA Pattern):</div>
 <div class="content">
@@ -947,22 +990,53 @@ class Calculadora {
 <div class="paragraph">
 <p>Una aserción es una verificación booleana que debe ser verdadera. Si es falsa, el test falla.</p>
 </div>
-<div class="exampleblock">
-<div class="title">Example 2. Tipos comunes de aserciones:</div>
-<div class="content">
-<div class="paragraph">
-<p>| Tipo | Ejemplo | Propósito</p>
-</div>
-<div class="paragraph">
-<p>| <strong>Igualdad</strong> | <code>assert.equal(actual, esperado)</code> | Verificar valores iguales
-| <strong>Tipo</strong> | <code>assert.strictEqual(5, '5')</code> | Verificar tipo y valor
-| <strong>Verdadero</strong> | <code>assert.ok(booleano)</code> | Verificar que es truthy
-| <strong>Falsedad</strong> | <code>assert.strictEqual(valor, false)</code> | Verificar que es falsy
-| <strong>Inclusión</strong> | <code>assert(array.includes(item))</code> | Verificar si contiene
-| <strong>Excepción</strong> | <code>assert.throws) &#8658; fn(</code> | Verificar que lanza error</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Tipos comunes de aserciones:</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Tipo</th>
+<th class="tableblock halign-left valign-top">Ejemplo</th>
+<th class="tableblock halign-left valign-top">Propósito</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Igualdad</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>assert.equal(actual, esperado)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verificar valores iguales</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Tipo</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>assert.strictEqual(5, '5')</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verificar tipo y valor</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Verdadero</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>assert.ok(booleano)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verificar que es truthy</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Falsedad</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>assert.strictEqual(valor, false)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verificar que es falsy</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Inclusión</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>assert(array.includes(item))</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verificar si contiene</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Excepción</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>assert.throws) &#8658; fn(</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verificar que lanza error</p></td>
+</tr>
+</tbody>
+</table>
 <div class="listingblock">
 <div class="title">Eje=mplo de aserciones:</div>
 <div class="content">
@@ -1005,20 +1079,37 @@ describe('Aserciones', () =&gt; {
 <div class="paragraph">
 <p>Las fixtures son datos o estados preparados que usa tu test. Son útiles para evitar repetir setup en cada test.</p>
 </div>
-<div class="exampleblock">
-<div class="title">Example 3. Tipos de fixtures:</div>
-<div class="content">
-<div class="paragraph">
-<p>| Tipo | Uso</p>
-</div>
-<div class="paragraph">
-<p>| <strong>Fixture estática</strong> | Datos fijos en archivos (JSON, etc.)
-| <strong>Fixture dinámica</strong> | Datos generados en setup
-| <strong>Factory functions</strong> | Funciones que crean objetos de prueba
-| <strong>Fixtures con hooks</strong> | Preparación con before/beforeEach</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. Tipos de fixtures:</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Tipo</th>
+<th class="tableblock halign-left valign-top">Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Fixture estática</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Datos fijos en archivos (JSON, etc.)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Fixture dinámica</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Datos generados en setup</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Factory functions</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Funciones que crean objetos de prueba</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Fixtures con hooks</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Preparación con before/beforeEach</p></td>
+</tr>
+</tbody>
+</table>
 <div class="listingblock">
 <div class="title">Ejemplo sin fixtures (Código repetido):</div>
 <div class="content">
@@ -1219,19 +1310,42 @@ describe('Mock de Log', () =&gt; {
 <div class="paragraph">
 <p>El code coverage mide qué porcentaje de tu código está siendo ejecutado por los tests.</p>
 </div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>| Tipo | Descripción | Meta</p>
-</div>
-<div class="paragraph">
-<p>| <strong>Statement</strong> | Líneas de código ejecutadas | 80%+
-| <strong>Branch</strong> | Caminos condicionales cubiertos | 75%+
-| <strong>Function</strong> | Funciones llamadas en tests | 80%+
-| <strong>Line</strong> | Líneas específicas ejecutadas | 80%+</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 50%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Tipo</th>
+<th class="tableblock halign-left valign-top">Descripción</th>
+<th class="tableblock halign-left valign-top">Meta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Statement</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Líneas de código ejecutadas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">80%+</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Branch</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Caminos condicionales cubiertos</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">75%+</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Function</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Funciones llamadas en tests</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">80%+</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Line</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Líneas específicas ejecutadas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">80%+</p></td>
+</tr>
+</tbody>
+</table>
 <div class="listingblock">
 <div class="title">Ejemplo - Función sin cobertura completa:</div>
 <div class="content">
@@ -1336,18 +1450,37 @@ describe('validarEdad', () =&gt; {
 <div class="paragraph">
 <p>Antes de instalar Mocha, verifica tus versiones:</p>
 </div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>| Herramienta | Versión Mínima | Recomendada</p>
-</div>
-<div class="paragraph">
-<p>| Node.js | 14.x | 18.x o superior
-| npm | 6.x | 9.x o superior
-| yarn | 1.x | 3.x o superior</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 33.3333%;">
+<col style="width: 50.0001%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Herramienta</th>
+<th class="tableblock halign-left valign-top">Versión Mínima</th>
+<th class="tableblock halign-left valign-top">Recomendada</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Node.js</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">18.x o superior</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">npm</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.x o superior</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">yarn</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.x</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3.x o superior</p></td>
+</tr>
+</tbody>
+</table>
 <div class="listingblock">
 <div class="title">Verificar tu versión de Node.js:</div>
 <div class="content">
@@ -1437,21 +1570,52 @@ npm init -y</code></pre>
 </div>
 <div class="sect3">
 <h4 id="_instalación_local_vs_global"><a class="link" href="#_instalación_local_vs_global">Instalación Local vs Global</a></h4>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>| Aspecto | Local (Recomendado) | Global</p>
-</div>
-<div class="paragraph">
-<p>| Comando | <code>npx mocha</code> | <code>mocha</code>
-| npm install | <code>npm install --save-dev mocha</code> | <code>npm install -g mocha</code>
-| Ubicación | <code>node_modules/</code> | <code>/usr/local/lib/</code>
-| Equipo | Consistente en todo el equipo | Puede variar por PC
-| Control | Fácil de actualizar en proyecto | Más difícil de controlar
-| Reproducibilidad | Alta (mismo en CI/CD) | Baja (pueden diferir versiones)</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Aspecto</th>
+<th class="tableblock halign-left valign-top">Local (Recomendado)</th>
+<th class="tableblock halign-left valign-top">Global</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Comando</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>npx mocha</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mocha</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">npm install</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>npm install --save-dev mocha</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>npm install -g mocha</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ubicación</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>node_modules/</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/usr/local/lib/</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Equipo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Consistente en todo el equipo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Puede variar por PC</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Control</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fácil de actualizar en proyecto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Más difícil de controlar</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reproducibilidad</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alta (mismo en CI/CD)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Baja (pueden diferir versiones)</p></td>
+</tr>
+</tbody>
+</table>
 <div class="listingblock">
 <div class="title">Mej=or práctica: Instala siempre localmente</div>
 <div class="content">
@@ -1544,20 +1708,43 @@ describe('Función suma', () =&gt; {
 }</code></pre>
 </div>
 </div>
-<div class="exampleblock">
-<div class="title">Example 4. Scripts comunes:</div>
-<div class="content">
-<div class="paragraph">
-<p>| Script | Comando | Propósito</p>
-</div>
-<div class="paragraph">
-<p>| <code>test</code> | <code>npm test</code> | Ejecutar tests
-| <code>test:watch</code> | <code>npm run test:watch</code> | Ejecutar en modo observación
-| <code>test:coverage</code> | <code>npm run test:coverage</code> | Generar reporte de cobertura
-| <code>test:debug</code> | <code>npm run test:debug</code> | Debuggear tests</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 4. Scripts comunes:</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Script</th>
+<th class="tableblock halign-left valign-top">Comando</th>
+<th class="tableblock halign-left valign-top">Propósito</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>test</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>npm test</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ejecutar tests</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>test:watch</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>npm run test:watch</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ejecutar en modo observación</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>test:coverage</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>npm run test:coverage</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generar reporte de cobertura</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>test:debug</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>npm run test:debug</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Debuggear tests</p></td>
+</tr>
+</tbody>
+</table>
 <div class="listingblock">
 <div class="title">Ejecutar scripts:</div>
 <div class="content">
@@ -1573,20 +1760,37 @@ npm run test:debug         # Modo debug en puerto 9229</code></pre>
 <div class="paragraph">
 <p>Para configuraciones más complejas, puedes crear un archivo de configuración dedicado. Mocha puede leer configuración de varios formatos.</p>
 </div>
-<div class="exampleblock">
-<div class="title">Example 5. Opciones disponibles:</div>
-<div class="content">
-<div class="paragraph">
-<p>| Formato | Archivo</p>
-</div>
-<div class="paragraph">
-<p>| JSON | <code>.mocharc.json</code>
-| YAML | <code>.mocharc.yaml</code>
-| JavaScript | <code>.mocharc.js</code>
-| Heredado | <code>test/mocha.opts</code></p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 5. Opciones disponibles:</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Formato</th>
+<th class="tableblock halign-left valign-top">Archivo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JSON</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>.mocharc.json</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">YAML</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>.mocharc.yaml</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JavaScript</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>.mocharc.js</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Heredado</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>test/mocha.opts</code></p></td>
+</tr>
+</tbody>
+</table>
 <div class="listingblock">
 <div class="title">Ejemplo .mocharc.json:</div>
 <div class="content">
@@ -1601,23 +1805,49 @@ npm run test:debug         # Modo debug en puerto 9229</code></pre>
 }</code></pre>
 </div>
 </div>
-<div class="exampleblock">
-<div class="title">Example 6. Explicación de opciones:</div>
-<div class="content">
-<div class="paragraph">
-<p>| Opción | Descripción</p>
-</div>
-<div class="paragraph">
-<p>| <code>require</code> | Módulos a cargar antes de ejecutar tests
-| <code>extensions</code> | Extensiones de archivo a buscar
-| <code>spec</code> | Patrón de búsqueda de archivos test
-| <code>timeout</code> | Tiempo máximo por test en ms (5000 = 5s)
-| <code>slow</code> | Tiempo para marcar test como lento en ms (300ms)
-| <code>reporter</code> | Formato de reporte (spec, json, tap, etc.)
-| <code>ui</code> | Estilo de interfaz (bdd, tdd, qunit)</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 6. Explicación de opciones:</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Opción</th>
+<th class="tableblock halign-left valign-top">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>require</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Módulos a cargar antes de ejecutar tests</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>extensions</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extensiones de archivo a buscar</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spec</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Patrón de búsqueda de archivos test</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>timeout</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tiempo máximo por test en ms (5000 = 5s)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>slow</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tiempo para marcar test como lento en ms (300ms)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>reporter</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Formato de reporte (spec, json, tap, etc.)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ui</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Estilo de interfaz (bdd, tdd, qunit)</p></td>
+</tr>
+</tbody>
+</table>
 <div class="listingblock">
 <div class="title">Ejemplo .mocharc.js:</div>
 <div class="content">
@@ -1841,22 +2071,45 @@ NODE_ENV=test npm run test:coverage</code></pre>
 }</code></pre>
 </div>
 </div>
-<div class="exampleblock">
-<div class="title">Example 7. Explicación de opciones:</div>
-<div class="content">
-<div class="paragraph">
-<p>| Opción | Descripción</p>
-</div>
-<div class="paragraph">
-<p>| <code>target</code> | Versión de JavaScript objetivo
-| <code>module</code> | Sistema de módulos (commonjs para Node.js)
-| <code>strict</code> | Modo estricto para mayor seguridad
-| <code>sourceMap</code> | Mapeos para debugging
-| <code>skipLibCheck</code> | No verificar archivos .d.ts
-| <code>esModuleInterop</code> | Compatibilidad con módulos ES6</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 7. Explicación de opciones:</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Opción</th>
+<th class="tableblock halign-left valign-top">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>target</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Versión de JavaScript objetivo</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>module</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sistema de módulos (commonjs para Node.js)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>strict</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Modo estricto para mayor seguridad</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sourceMap</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mapeos para debugging</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>skipLibCheck</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No verificar archivos .d.ts</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>esModuleInterop</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compatibilidad con módulos ES6</p></td>
+</tr>
+</tbody>
+</table>
 <div class="sect4">
 <h5 id="_sourcemaps_para_debugging"><a class="link" href="#_sourcemaps_para_debugging">Sourcemaps para Debugging</a></h5>
 <div class="paragraph">
@@ -2044,20 +2297,47 @@ describe('Clase Calculadora', () =&gt; {
 </div>
 <div class="sect3">
 <h4 id="_troubleshooting_común"><a class="link" href="#_troubleshooting_común">Troubleshooting Común</a></h4>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>| Problema | Causa | Solución</p>
-</div>
-<div class="paragraph">
-<p>| <code>Cannot find module 'ts-node'</code> | ts-node no está instalado | <code>npm install --save-dev ts-node</code>
-| <code>Cannot find module 'typescript'</code> | TypeScript no instalado | <code>npm install --save-dev typescript</code>
-| <code>Timeout error</code> | Test toma más de 5s | Aumentar timeout en .mocharc.json
-| <code>Sourcemap error</code> | SourceMap no generado | Habilitar <code>sourceMap: true</code> en tsconfig.json
-| <code>Module not found</code> | Ruta incorrecta | Verificar paths en tsconfig.json</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 33.3333%;">
+<col style="width: 50.0001%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Problema</th>
+<th class="tableblock halign-left valign-top">Causa</th>
+<th class="tableblock halign-left valign-top">Solución</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Cannot find module 'ts-node'</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ts-node no está instalado</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>npm install --save-dev ts-node</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Cannot find module 'typescript'</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TypeScript no instalado</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>npm install --save-dev typescript</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Timeout error</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Test toma más de 5s</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aumentar timeout en .mocharc.json</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Sourcemap error</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SourceMap no generado</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Habilitar <code>sourceMap: true</code> en tsconfig.json</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Module not found</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ruta incorrecta</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verificar paths en tsconfig.json</p></td>
+</tr>
+</tbody>
+</table>
 <hr>
 </div>
 </div>
@@ -2258,19 +2538,38 @@ test('descripción del comportamiento esperado', () =&gt; {
 });</code></pre>
 </div>
 </div>
-<div class="exampleblock">
-<div class="title">Example 8. Comparación de estilos:</div>
-<div class="content">
-<div class="paragraph">
-<p>| Estilo | Uso | Ventajas</p>
-</div>
-<div class="paragraph">
-<p>| <strong>Callback</strong> | Código muy viejo | Compatible con cualquier navegador
-| <strong>Promise</strong> | Código moderno | Mejor que callbacks
-| <strong>Async/Await</strong> | Recomendado | Más legible, más fácil de entender</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 8. Comparación de estilos:</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Estilo</th>
+<th class="tableblock halign-left valign-top">Uso</th>
+<th class="tableblock halign-left valign-top">Ventajas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Callback</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Código muy viejo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compatible con cualquier navegador</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Promise</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Código moderno</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mejor que callbacks</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Async/Await</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Recomendado</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Más legible, más fácil de entender</p></td>
+</tr>
+</tbody>
+</table>
 <div class="listingblock">
 <div class="title">Ejemplo práctico con API:</div>
 <div class="content">
@@ -2505,19 +2804,38 @@ test('descripción del comportamiento esperado', () =&gt; {
 });</code></pre>
 </div>
 </div>
-<div class="exampleblock">
-<div class="title">Example 9. Tabla de timeouts:</div>
-<div class="content">
-<div class="paragraph">
-<p>| Contexto | Timeout por defecto | Se puede cambiar</p>
-</div>
-<div class="paragraph">
-<p>| Test | 2000ms | Sí
-| Hook | 2000ms | Sí
-| Async hook | 2000ms | Sí</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 9. Tabla de timeouts:</caption>
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 33.3333%;">
+<col style="width: 50.0001%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Contexto</th>
+<th class="tableblock halign-left valign-top">Timeout por defecto</th>
+<th class="tableblock halign-left valign-top">Se puede cambiar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Test</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2000ms</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sí</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hook</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2000ms</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sí</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Async hook</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2000ms</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sí</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="_orden_de_ejecución"><a class="link" href="#_orden_de_ejecución">Orden de Ejecución</a></h4>
@@ -2797,21 +3115,60 @@ describe('Esta suite NO se ejecuta', () =&gt; {
 </div>
 <div class="sect3">
 <h4 id="_tabla_de_control_de_ejecución"><a class="link" href="#_tabla_de_control_de_ejecución">Tabla de Control de Ejecución</a></h4>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>| Función | Propósito | Scope | Resultado</p>
-</div>
-<div class="paragraph">
-<p>| <code>it.skip()</code> | Omitir test | Test individual | Marcado como pendiente
-| <code>describe.skip()</code> | Omitir suite | Suite completa | Todos omitidos
-| <code>it.only()</code> | Ejecutar solo este | Test individual | Solo este se ejecuta
-| <code>describe.only()</code> | Ejecutar solo suite | Suite | Solo esta se ejecuta
-| <code>this.retries(n)</code> | Reintentar n veces | Test individual | Se reintenta si falla
-| <code>this.timeout(ms)</code> | Establecer timeout | Test/Hook | Error si excede tiempo</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Función</th>
+<th class="tableblock halign-left valign-top">Propósito</th>
+<th class="tableblock halign-left valign-top">Scope</th>
+<th class="tableblock halign-left valign-top">Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>it.skip()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Omitir test</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Test individual</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Marcado como pendiente</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>describe.skip()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Omitir suite</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Suite completa</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Todos omitidos</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>it.only()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ejecutar solo este</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Test individual</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Solo este se ejecuta</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>describe.only()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ejecutar solo suite</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Suite</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Solo esta se ejecuta</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>this.retries(n)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reintentar n veces</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Test individual</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Se reintenta si falla</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>this.timeout(ms)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Establecer timeout</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Test/Hook</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Error si excede tiempo</p></td>
+</tr>
+</tbody>
+</table>
 <div class="sect4">
 <h5 id="_ejemplo_completo_control_de_ejecución"><a class="link" href="#_ejemplo_completo_control_de_ejecución">Ejemplo Completo: Control de Ejecución</a></h5>
 <div class="listingblock">
@@ -3144,23 +3501,72 @@ describe('assert.rejects()', () =&gt; {
 </div>
 <div class="sect3">
 <h4 id="_tabla_de_assert_nativos"><a class="link" href="#_tabla_de_assert_nativos">Tabla de Assert Nativos</a></h4>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>| Función | Propósito | Ejemplo | Usa</p>
-</div>
-<div class="paragraph">
-<p>| <code>assert.equal()</code> | Igualdad flexible | <code>assert.equal(5, '5')</code> | == (coerción)
- <code>assert.strictEqual()</code> | Igualdad estricta | <code>assert.strictEqual(5, 5)</code> | === (sin coerción)
-| <code>assert.notEqual()</code> | Desigualdad flexible | <code>assert.notEqual(5, 6)</code> | !=
-| <code>assert.notStrictEqual()</code> | Desigualdad estricta | <code>assert.notStrictEqual(5, '5')</code> | !==
-| <code>assert.ok()</code> | Verificar truthy | <code>assert.ok(true)</code> | Booleano
-| <code>assert.throws()</code> | Error síncrono | <code>assert.throws) &#8658; fn(</code> | Excepciones
-| <code>a=ssert.rejects()</code> | Error asíncrono | <code>await assert.rejects(promise)</code> | Promises
-| <code>assert.deepEqual()</code> | Objetos iguales | <code>assert.deepEqual({a:1}, {a:1})</code> | Profundo</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Función</th>
+<th class="tableblock halign-left valign-top">Propósito</th>
+<th class="tableblock halign-left valign-top">Ejemplo</th>
+<th class="tableblock halign-left valign-top">Usa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>assert.equal()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Igualdad flexible</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>assert.equal(5, '5')</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">== (coerción)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>assert.strictEqual()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Igualdad estricta</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>assert.strictEqual(5, 5)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">=== (sin coerción)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>assert.notEqual()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Desigualdad flexible</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>assert.notEqual(5, 6)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">!=</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>assert.notStrictEqual()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Desigualdad estricta</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>assert.notStrictEqual(5, '5')</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">!==</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>assert.ok()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verificar truthy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>assert.ok(true)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Booleano</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>assert.throws()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Error síncrono</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>assert.throws) &#8658; fn(</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Excepciones</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>a=ssert.rejects()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Error asíncrono</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>await assert.rejects(promise)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Promises</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>assert.deepEqual()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Objetos iguales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>assert.deepEqual({a:1}, {a:1})</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Profundo</p></td>
+</tr>
+</tbody>
+</table>
 <hr>
 </div>
 </div>
@@ -3190,17 +3596,32 @@ describe('assert.rejects()', () =&gt; {
 <div class="paragraph">
 <p>Chai soporta dos estilos: BDD (expect/should) y TDD (assert).</p>
 </div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>| Estilo | Sintaxis | Popularidad</p>
-</div>
-<div class="paragraph">
-<p>| <strong>BDD</strong> | <code>expect()</code> o <code>should</code> | Muy popular, legible
-| <strong>TDD</strong> | <code>assert</code> | Tradicional, menos común</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 33.3333%;">
+<col style="width: 50.0001%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Estilo</th>
+<th class="tableblock halign-left valign-top">Sintaxis</th>
+<th class="tableblock halign-left valign-top">Popularidad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>BDD</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>expect()</code> o <code>should</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Muy popular, legible</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>TDD</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>assert</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tradicional, menos común</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="_bdd_style_expect"><a class="link" href="#_bdd_style_expect">BDD Style: expect()</a></h4>
@@ -3394,43 +3815,112 @@ describe('Chai - TDD Style assert', () =&gt; {
 </div>
 <div class="sect3">
 <h4 id="_comparencia_chai_vs_assert_nativo"><a class="link" href="#_comparencia_chai_vs_assert_nativo">Comparencia Chai vs Assert Nativo</a></h4>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>| Característica | Assert Nativo | Chai</p>
-</div>
-<div class="paragraph">
-<p>| <strong>Mensajes de error</strong> | Básicos | Muy descriptivos
-| <strong>Chainable</strong> | No | Sí
-| <strong>Múltiples estilos</strong> | No | Sí (expect, should, assert)
-| <strong>Funciones avanzadas</strong> | Limitadas | Muchas
-| <strong>Tamaño</strong> | 1KB | ~20KB
-| <strong>Curva de aprendizaje</strong> | Baja | Media</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Característica</th>
+<th class="tableblock halign-left valign-top">Assert Nativo</th>
+<th class="tableblock halign-left valign-top">Chai</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Mensajes de error</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Básicos</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Muy descriptivos</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Chainable</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sí</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Múltiples estilos</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sí (expect, should, assert)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Funciones avanzadas</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Limitadas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Muchas</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Tamaño</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1KB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~20KB</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Curva de aprendizaje</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Baja</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Media</p></td>
+</tr>
+</tbody>
+</table>
 <div class="sect4">
 <h5 id="_principales_aserciones_de_chai"><a class="link" href="#_principales_aserciones_de_chai">Principales Aserciones de Chai</a></h5>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>| Aserción | Ejemplo</p>
-</div>
-<div class="paragraph">
-<p>| <strong>Igualdad</strong> | <code>expect(5).to.equal(5)</code> / <code>expect(5).to.eql(5)</code>
-| <strong>Identidad</strong> | <code>expect(obj).to.equal(obj)</code>
-| <strong>Tipo</strong> | <code>expect(5).to.be.a('number')</code>
-| <strong>Verdadero/Falso</strong> | <code>expect(true).to.be.true</code> / <code>.to.be.false</code>
-| <strong>Null/Undefined</strong> | <code>expect(val).to.be.null</code> / <code>.to.be.undefined</code>
-| <strong>Numérico</strong> | <code>expect(5).to.be.above(4)</code> / <code>.to.be.below(6)</code>
-| <strong>Inclusión</strong> | <code>expect([1,2]).to.include(1)</code> / <code>.to.include.key('a')</code>
-| <strong>Longitud</strong> | <code>expect('hello').to.have.lengthOf(5)</code>
-| <strong>E=xcepciones</strong> | <code>expect) &#8658; fn(.to.throw(Error)</code>
-| <strong>Propiedades</strong> | <code>expect({a:1}).to.have.property('a')</code>
-| <strong>Existencia</strong> | <code>expect(val).to.exist</code></p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Aserción</th>
+<th class="tableblock halign-left valign-top">Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Igualdad</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>expect(5).to.equal(5)</code> / <code>expect(5).to.eql(5)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Identidad</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>expect(obj).to.equal(obj)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Tipo</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>expect(5).to.be.a('number')</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Verdadero/Falso</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>expect(true).to.be.true</code> / <code>.to.be.false</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Null/Undefined</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>expect(val).to.be.null</code> / <code>.to.be.undefined</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Numérico</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>expect(5).to.be.above(4)</code> / <code>.to.be.below(6)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Inclusión</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>expect([1,2]).to.include(1)</code> / <code>.to.include.key('a')</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Longitud</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>expect('hello').to.have.lengthOf(5)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>E=xcepciones</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>expect) &#8658; fn(.to.throw(Error)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Propiedades</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>expect({a:1}).to.have.property('a')</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Existencia</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>expect(val).to.exist</code></p></td>
+</tr>
+</tbody>
+</table>
 <hr>
 </div>
 </div>
@@ -3699,22 +4189,57 @@ describe('Comparación: assert vs chai', () =&gt; {
 </div>
 <div class="sect3">
 <h4 id="_tabla_resumen_de_aserciones_avanzadas"><a class="link" href="#_tabla_resumen_de_aserciones_avanzadas">Tabla Resumen de Aserciones Avanzadas</a></h4>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>| Característica | Assert Nativo | Chai</p>
-</div>
-<div class="paragraph">
-<p>| <strong>Validar excepción</strong> | <code>assert.throws()</code> | <code>expect) &#8658; fn(.to.throw()</code>
-| <strong>Validar promise rechazada</strong> | <code>assert.rejects()</code> | Usar try/catch + expect
-| <strong>Mensaje personalizado</strong> | Segundo parámetro | Segundo parámetro en expect
-| <strong>Validar estructura</strong> | <code>assert.deepEqual()</code> | <code>expect(obj).to.deep.equal()</code>
-| <strong>Validar inclusión</strong> | <code>assert.ok(arr.includes())</code> | <code>expect(arr).to.include()</code>
- <strong>Validar tipo</strong> | <code>assert.ok(typeof x === 'number')</code> | <code>expect(x).to.be.a('number')</code>
-| <strong>Legibilidad</strong> | Media | Alta</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Característica</th>
+<th class="tableblock halign-left valign-top">Assert Nativo</th>
+<th class="tableblock halign-left valign-top">Chai</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Validar excepción</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>assert.throws()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>expect) &#8658; fn(.to.throw()</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Validar promise rechazada</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>assert.rejects()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usar try/catch + expect</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Mensaje personalizado</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Segundo parámetro</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Segundo parámetro en expect</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Validar estructura</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>assert.deepEqual()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>expect(obj).to.deep.equal()</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Validar inclusión</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>assert.ok(arr.includes())</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>expect(arr).to.include()</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Validar tipo</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>assert.ok(typeof x === 'number')</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>expect(x).to.be.a('number')</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Legibilidad</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Media</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alta</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="_ejemplo_práctico_completo"><a class="link" href="#_ejemplo_práctico_completo">Ejemplo Práctico Completo</a></h4>
@@ -3941,21 +4466,44 @@ describe('Funciones Puras', () =&gt; {
 <div class="paragraph">
 <p>Los tests deben verificar diferentes tipos de parámetros y casos borde.</p>
 </div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>| Tipo de Parámetro | Casos a Testear</p>
-</div>
-<div class="paragraph">
-<p>| <strong>Números</strong> | Positivos, negativos, cero, decimales, NaN, Infinity
-| <strong>Strings</strong> | Vacío, con espacios, especiales, muy largo
-| <strong>Arrays</strong> | Vacío, un elemento, múltiples, con duplicados
-| <strong>Objetos</strong> | Vacío, incompleto, extra keys, null
-| <strong>Booleanos</strong> | true, false
-| <strong>null/undefined</strong> | Ambos casos</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Tipo de Parámetro</th>
+<th class="tableblock halign-left valign-top">Casos a Testear</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Números</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Positivos, negativos, cero, decimales, NaN, Infinity</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Strings</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Vacío, con espacios, especiales, muy largo</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Arrays</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Vacío, un elemento, múltiples, con duplicados</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Objetos</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Vacío, incompleto, extra keys, null</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Booleanos</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true, false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>null/undefined</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ambos casos</p></td>
+</tr>
+</tbody>
+</table>
 <div class="listingblock">
 <div class="title">Eje=mplo: Testing exhaustivo</div>
 <div class="content">
@@ -4940,18 +5488,42 @@ npm install --save-dev @types/sinon  # Para TypeScript</code></pre>
 </div>
 <div class="sect3">
 <h4 id="_diferencia_spies_stubs_y_mocks"><a class="link" href="#_diferencia_spies_stubs_y_mocks">Diferencia: Spies, Stubs y Mocks</a></h4>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>| Herramienta | Propósito | Usa | Verifica</p>
-</div>
-<div class="paragraph">
-<p>| <strong>Spy</strong> | Observar | Función original | Cómo se llamó
-| <strong>Stub</strong> | Reemplazar | Implementación fake | Cómo se llamó + Control
-| <strong>Mock</strong> | Afirmar | Implementación fake | Llamadas + Comportamiento</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Herramienta</th>
+<th class="tableblock halign-left valign-top">Propósito</th>
+<th class="tableblock halign-left valign-top">Usa</th>
+<th class="tableblock halign-left valign-top">Verifica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Spy</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Observar</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Función original</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cómo se llamó</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Stub</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reemplazar</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementación fake</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cómo se llamó + Control</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Mock</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Afirmar</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementación fake</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Llamadas + Comportamiento</p></td>
+</tr>
+</tbody>
+</table>
 <div class="ulist">
 <div class="title">Cuándo usar cada uno:</div>
 <ul>
@@ -5131,26 +5703,61 @@ describe('Spies - Métodos de Objeto', () =&gt; {
 <div class="paragraph">
 <p>Información detallada sobre todas las llamadas.</p>
 </div>
-<div class="exampleblock">
-<div class="title">Example 10. Tabla de propiedades útiles:</div>
-<div class="content">
-<div class="paragraph">
-<p>| Propiedad | Descripción</p>
-</div>
-<div class="paragraph">
-<p>| <code>spy.called</code> | ¿Se llamó al menos una vez?
-| <code>spy.callCount</code> | Número total de llamadas
-| <code>spy.calledOnce</code> | ¿Se llamó exactamente una vez?
-| <code>spy.calledTwice</code> | ¿Se llamó exactamente dos veces?
-| <code>spy.calledThrice</code> | ¿Se llamó exactamente tres veces?
-| <code>spy.notCalled</code> | ¿No se llamó nunca?
-| <code>spy.firstCall</code> | Primera llamada (objeto Call)
-| <code>spy.lastCall</code> | Última llamada (objeto Call)
-| <code>s=py.getCall(n)</code> | Obtener n-ésima llamada
-| <code>spy.getCalls()</code> | Todas las llamadas</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 10. Tabla de propiedades útiles:</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Propiedad</th>
+<th class="tableblock halign-left valign-top">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spy.called</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">¿Se llamó al menos una vez?</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spy.callCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Número total de llamadas</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spy.calledOnce</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">¿Se llamó exactamente una vez?</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spy.calledTwice</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">¿Se llamó exactamente dos veces?</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spy.calledThrice</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">¿Se llamó exactamente tres veces?</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spy.notCalled</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">¿No se llamó nunca?</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spy.firstCall</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Primera llamada (objeto Call)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spy.lastCall</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Última llamada (objeto Call)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>s=py.getCall(n)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Obtener n-ésima llamada</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spy.getCalls()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Todas las llamadas</p></td>
+</tr>
+</tbody>
+</table>
 <div class="listingblock">
 <div class="title">Ejemplo:</div>
 <div class="content">
@@ -5481,26 +6088,64 @@ describe('Sinon Mocks - Aserciones Integradas', () =&gt; {
 <div class="paragraph">
 <p>Tabla de métodos de expectativas:</p>
 </div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>| Método | Descripción</p>
-</div>
-<div class="paragraph">
-<p>| <code>.once()</code> | Debe llamarse exactamente una vez
-| <code>.twice()</code> | Debe llamarse exactamente dos veces
-| <code>.thrice()</code> | Debe llamarse exactamente tres veces
-| <code>.exactly(n)</code> | Debe llamarse exactamente n veces
-| <code>.atLeast(n)</code> | Debe llamarse al menos n veces
-| <code>.atMost(n)</code> | Debe llamarse como máximo n veces
-| <code>.withArgs(args)</code> | Debe llamarse con estos argumentos
-| <code>.withExactArgs(args)</code> | Exactamente estos argumentos (sin variación)
-| <code>.=returns(value)</code> | Retorna un valor específico
-| <code>.throws(error)</code> | Lanza un error específico
-| <code>.verify()</code> | Verifica que se cumplieron todas las expectativas</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Método</th>
+<th class="tableblock halign-left valign-top">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>.once()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Debe llamarse exactamente una vez</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>.twice()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Debe llamarse exactamente dos veces</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>.thrice()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Debe llamarse exactamente tres veces</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>.exactly(n)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Debe llamarse exactamente n veces</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>.atLeast(n)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Debe llamarse al menos n veces</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>.atMost(n)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Debe llamarse como máximo n veces</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>.withArgs(args)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Debe llamarse con estos argumentos</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>.withExactArgs(args)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exactamente estos argumentos (sin variación)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>.=returns(value)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Retorna un valor específico</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>.throws(error)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lanza un error específico</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>.verify()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifica que se cumplieron todas las expectativas</p></td>
+</tr>
+</tbody>
+</table>
 <div class="listingblock">
 <div class="title">Ejemplo completo:</div>
 <div class="content">
@@ -5670,18 +6315,37 @@ describe('CarritoCompras - Spies, Stubs y Mocks', () =&gt; {
 </div>
 <div class="sect3">
 <h4 id="_cuándo_usar_cada_uno"><a class="link" href="#_cuándo_usar_cada_uno">Cuándo Usar Cada Uno</a></h4>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>| Herramienta | Cuándo Usar | Beneficio</p>
-</div>
-<div class="paragraph">
-<p>| <strong>Spy</strong> | Monitorear función real | Verifica intera acciones sin interferir
-| <strong>Stub</strong> | Reemplazar dependencia | Control total, aisla código de test
-| <strong>Mock</strong> | Verificar comportamiento | Aserciones integradas, expresa intención</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 33.3333%;">
+<col style="width: 50.0001%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Herramienta</th>
+<th class="tableblock halign-left valign-top">Cuándo Usar</th>
+<th class="tableblock halign-left valign-top">Beneficio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Spy</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Monitorear función real</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifica intera acciones sin interferir</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Stub</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reemplazar dependencia</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Control total, aisla código de test</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Mock</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verificar comportamiento</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aserciones integradas, expresa intención</p></td>
+</tr>
+</tbody>
+</table>
 <hr>
 </div>
 </div>
@@ -7714,25 +8378,57 @@ describe('ServicioEcommerce - Integración Fixtures', () =&gt; {
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mocha --reporter &lt;nombre&gt;</code></pre>
 </div>
 </div>
-<div class="exampleblock">
-<div class="title">Example 11. Reporters disponibles:</div>
-<div class="content">
-<div class="paragraph">
-<p>| Reporter | Descripción</p>
-</div>
-<div class="paragraph">
-<p>| <code>spec</code> | Formato jerárquico detallado (por defecto)
-| <code>dot</code> | Puntos verdes/rojos, muy compacto
-| <code>tap</code> | Test Anything Protocol para herramientas CI
-| <code>json</code> | JSON puro para procesamiento
-| <code>json-stream</code> | JSON línea por línea
-| <code>nyan</code> | ASCII art (lúdico)
-| <code>markdown</code> | Output en formato Markdown
-| <code>min</code> | Mínimo, solo resumen
-| <code>l=anding</code> | Animación de "landing"</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 11. Reporters disponibles:</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Reporter</th>
+<th class="tableblock halign-left valign-top">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spec</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Formato jerárquico detallado (por defecto)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dot</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Puntos verdes/rojos, muy compacto</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tap</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Test Anything Protocol para herramientas CI</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>json</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JSON puro para procesamiento</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>json-stream</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JSON línea por línea</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nyan</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ASCII art (lúdico)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>markdown</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Output en formato Markdown</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>min</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mínimo, solo resumen</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>l=anding</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Animación de "landing"</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="_spec_reporter_por_defecto"><a class="link" href="#_spec_reporter_por_defecto">Spec Reporter (Por Defecto)</a></h4>
@@ -7920,23 +8616,49 @@ ok 5 - Calculadora debe obtener raíz cuadrada</code></pre>
 <div class="paragraph">
 <p>Un reporter es una clase que extiende de EventEmitter y responde a eventos de Mocha.</p>
 </div>
-<div class="exampleblock">
-<div class="title">Example 12. Eventos principales:</div>
-<div class="content">
-<div class="paragraph">
-<p>| Evento | Se dispara cuando&#8230;&#8203;</p>
-</div>
-<div class="paragraph">
-<p>| <code>start</code> | Comienzan todos los tests
-| <code>suite</code> | Comienza un suite
-| <code>test</code> | Comienza un test
-| <code>pass</code> | Un test pasó
-| <code>fail</code> | Un test falló
-| <code>pending</code> | Un test está pendiente
-| <code>end</code> | Finalizan todos los tests</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 12. Eventos principales:</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Evento</th>
+<th class="tableblock halign-left valign-top">Se dispara cuando&#8230;&#8203;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>start</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Comienzan todos los tests</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>suite</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Comienza un suite</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>test</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Comienza un test</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pass</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un test pasó</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>fail</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un test falló</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pending</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Un test está pendiente</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>end</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Finalizan todos los tests</p></td>
+</tr>
+</tbody>
+</table>
 <div class="listingblock">
 <div class="title">Ejemplo básico:</div>
 <div class="content">
@@ -8521,20 +9243,43 @@ Reporte completo guardado en: ./test-results/report.json</code></pre>
 <div class="paragraph">
 <p>Code coverage responde: "¿Qué porcentaje de mi código ha sido ejecutado durante los tests?"</p>
 </div>
-<div class="exampleblock">
-<div class="title">Example 13. Tipos de coverage:</div>
-<div class="content">
-<div class="paragraph">
-<p>| Tipo | Qué mide | Ejemplo</p>
-</div>
-<div class="paragraph">
-<p>| <strong>Statement</strong> | % de sentencias ejecutadas | <code>const x = 5;</code> se ejecutó
-| <strong>Branch</strong> | % de caminos condicionales | <code>if (x &gt; 5)</code> se evaluó true y false
-| <strong>Function</strong> | % de funciones llamadas | <code>sumar()</code> fue invocada
-| <strong>Line</strong> | % de líneas ejecutadas | Línea 42 se ejecutó</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 13. Tipos de coverage:</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Tipo</th>
+<th class="tableblock halign-left valign-top">Qué mide</th>
+<th class="tableblock halign-left valign-top">Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Statement</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">% de sentencias ejecutadas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>const x = 5;</code> se ejecutó</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Branch</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">% de caminos condicionales</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>if (x &gt; 5)</code> se evaluó true y false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Function</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">% de funciones llamadas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sumar()</code> fue invocada</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Line</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">% de líneas ejecutadas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Línea 42 se ejecutó</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="_instalación_de_nyc"><a class="link" href="#_instalación_de_nyc">Instalación de NYC</a></h4>
@@ -9119,21 +9864,48 @@ describe('Dividir - Con Errores Cubiertos', () =&gt; {
 <div class="paragraph">
 <p>No siempre es posible (ni deseable) alcanzar 100% coverage.</p>
 </div>
-<div class="exampleblock">
-<div class="title">Example 14. Estrategia recomendada:</div>
-<div class="content">
-<div class="paragraph">
-<p>| Tipo de código | Coverage | Razón</p>
-</div>
-<div class="paragraph">
-<p>| Lógica crítica | 90-100% | Errores aquí son costosos
-| Servicios | 80-90% | Comportamiento importante
-| Utilidades | 80-90% | Cobertura razonable
-| UI/Controllers | 70-80% | Cambios frecuentes
-| Código generado | &lt;50% | Costo-beneficio bajo</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 14. Estrategia recomendada:</caption>
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 33.3333%;">
+<col style="width: 50.0001%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Tipo de código</th>
+<th class="tableblock halign-left valign-top">Coverage</th>
+<th class="tableblock halign-left valign-top">Razón</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lógica crítica</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">90-100%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Errores aquí son costosos</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Servicios</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">80-90%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Comportamiento importante</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Utilidades</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">80-90%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cobertura razonable</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UI/Controllers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">70-80%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cambios frecuentes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Código generado</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;50%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Costo-beneficio bajo</p></td>
+</tr>
+</tbody>
+</table>
 <div class="listingblock">
 <div class="title">Configurar thresholds reales:</div>
 <div class="content">
@@ -9457,19 +10229,36 @@ describe('API - Request Builder', () =&gt; {
 <div class="paragraph">
 <p>Tabla de assertions comunes:</p>
 </div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>| Método | Qué valida</p>
-</div>
-<div class="paragraph">
-<p>| <code>.expect(status)</code> | Status HTTP (200, 404, 500, etc.)
-| <code>.expect(status, body)</code> | Status y body exacto
-| <code>.expect(campo, valor)</code> | Propiedad del response body
-| <code>.expect(fn)</code> | Custom assertion function</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Método</th>
+<th class="tableblock halign-left valign-top">Qué valida</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>.expect(status)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status HTTP (200, 404, 500, etc.)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>.expect(status, body)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status y body exacto</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>.expect(campo, valor)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Propiedad del response body</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>.expect(fn)</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Custom assertion function</p></td>
+</tr>
+</tbody>
+</table>
 <div class="listingblock">
 <div class="title">Ejemplos:</div>
 <div class="content">
@@ -9519,24 +10308,53 @@ describe('Response Assertions', () =&gt; {
 <div class="paragraph">
 <p>Validar status y headers HTTP.</p>
 </div>
-<div class="exampleblock">
-<div class="title">Example 15. Tabla de status comunes:</div>
-<div class="content">
-<div class="paragraph">
-<p>| Status | Significado</p>
-</div>
-<div class="paragraph">
-<p>| 200 | OK - Éxito
-| 201 | Created - Recurso creado
-| 204 | No Content - Éxito sin body
-| 400 | Bad Request - Datos inválidos
-| 401 | Unauthorized - Falta autenticación
-| 403 | Forbidden - Sin permisos
-| 404 | Not Found - Recurso no existe
-| 500 | Server Error - Error del servidor</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 15. Tabla de status comunes:</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Status</th>
+<th class="tableblock halign-left valign-top">Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">200</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OK - Éxito</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">201</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Created - Recurso creado</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">204</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No Content - Éxito sin body</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">400</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bad Request - Datos inválidos</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">401</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unauthorized - Falta autenticación</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">403</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Forbidden - Sin permisos</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">404</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not Found - Recurso no existe</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">500</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Server Error - Error del servidor</p></td>
+</tr>
+</tbody>
+</table>
 <div class="listingblock">
 <div class="title">Ejemplos:</div>
 <div class="content">
@@ -10557,19 +11375,36 @@ describe('E-commerce - Flujo Completo de Compra', () =&gt; {
 <div class="paragraph">
 <p><strong>Convenciones:</strong></p>
 </div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>| Patrón | Ejemplo</p>
-</div>
-<div class="paragraph">
-<p>| Describe | Nombre de clase/función: <code>describe('Calculadora', &#8230;&#8203;)</code>
-| It/Test | Comportamiento esperado: <code>it('debe sumar números positivos', &#8230;&#8203;)</code>
-| Archivo | <code>calculadora.test.ts</code> (plural: tests, singular: test okay)
-| Variables | <code>usuarioValido</code>, <code>respuestaConError</code>, <code>datosMock</code></p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Patrón</th>
+<th class="tableblock halign-left valign-top">Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Describe</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nombre de clase/función: <code>describe('Calculadora', &#8230;&#8203;)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It/Test</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Comportamiento esperado: <code>it('debe sumar números positivos', &#8230;&#8203;)</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Archivo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>calculadora.test.ts</code> (plural: tests, singular: test okay)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Variables</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>usuarioValido</code>, <code>respuestaConError</code>, <code>datosMock</code></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="_dry_dont_repeat_yourself_en_tests"><a class="link" href="#_dry_dont_repeat_yourself_en_tests">DRY (Don&#8217;t Repeat Yourself) en Tests</a></h4>
@@ -10810,20 +11645,40 @@ it('debe incrementar contador después de cada llamada', () =&gt; {});</code></p
 <div class="paragraph">
 <p>Formula útil: <code>"debe [acción] cuando [condición]"</code></p>
 </div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p>| Patrón | Ejemplo</p>
-</div>
-<div class="paragraph">
-<p>| Valor positivo | "debe retornar suma correcta"
-| Valor negativo | "debe lanzar error para entrada inválida"
-| Límite | "debe manejar strings vacíos"
-| Lado efecto | "debe actualizar base de datos"
-| Performance | "debe completarse en menos de 100ms"</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Patrón</th>
+<th class="tableblock halign-left valign-top">Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Valor positivo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"debe retornar suma correcta"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Valor negativo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"debe lanzar error para entrada inválida"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Límite</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"debe manejar strings vacíos"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lado efecto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"debe actualizar base de datos"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Performance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"debe completarse en menos de 100ms"</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="_aaa_pattern_arrange_act_assert"><a class="link" href="#_aaa_pattern_arrange_act_assert">AAA Pattern: Arrange, Act, Assert</a></h4>
@@ -11870,7 +12725,7 @@ npm run test:quick   # Output mínimo</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-24 08:51:40 +0100
+Last updated 2026-02-25 08:53:33 +0100
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

@@ -5,6 +5,7 @@ namespace Tetris {
 
         // invoker para el comando de nueva pieza
         private invoker: Invoker;
+        private mediator!: TetrisScoreMediator;
 
         constructor(canvasId: string) {
             this.canvas = document.getElementById(canvasId) as HTMLCanvasElement;
@@ -40,7 +41,10 @@ namespace Tetris {
             return true;
         }
 
-
+        setMediator(mediator: TetrisScoreMediator) {
+            // Aquí podrías guardar una referencia al mediador si es necesario
+            this.mediator = mediator;
+        }
 
     }
 }

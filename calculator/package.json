@@ -7,15 +7,25 @@
     "build": "tsc src/index.ts --outDir dist",
     "start": "node dist/index.js",
     "dev": "tsc src/index.ts --outDir dist --watch & nodemon dist/index.js",
-    "test": "echo \"Esto es un test\" && exit 0"
+    "test": "mocha",
+    "test:watch": "mocha --watch --watch-extensions ts",
+    "test:reporter": "mocha --reporter html --reporter-options outFile=test-report.html"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/chai": "^5.2.3",
+    "@types/mocha": "^10.0.10",
     "@types/node": "^25.3.0",
+    "chai": "^6.2.2",
     "javascript-state-machine": "^3.1.0",
+    "mocha": "^11.7.5",
     "nodemon": "^3.1.14",
+    "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "rxjs": "^7.8.2"
   }
 }
