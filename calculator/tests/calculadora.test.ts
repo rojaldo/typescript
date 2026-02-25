@@ -1,48 +1,49 @@
-import "mocha";
+import {observer, myObservable} from "../src/index";
+// import mocha and chai for testing
+import { describe, it } from "mocha";
 import { expect } from "chai";
 
-// Funciones a probar
-function sumar(a: number, b: number): number {
-  return a + b;
-}
+describe('Observable Test', () => {
+    let myObserver: any;
 
-function restar(a: number, b: number): number {
-  return a - b;
-}
-
-// Suite de tests
-describe("Calculadora", () => {
-  describe("Suma", () => {
-    it("debería sumar dos números positivos", () => {
-      const resultado = sumar(5, 3);
-      expect(resultado).to.equal(8);
-      expect(resultado).to.be.a("number");
-      expect(resultado).to.be.greaterThan(0);
+    beforeEach(() => {
+        myObservable.subscribe(observer);
+        myObserver = observer;
     });
 
-    it("debería sumar números negativos", () => {
-      const resultado = sumar(-5, -3);
-      expect(resultado).to.equal(-8);
-      expect(resultado).to.be.a("number");
-      expect(resultado).to.be.lessThan(0);
+    afterEach(() => {
+        myObserver.next = () => {};
+        myObserver.error = () => {};
     });
 
-    it("debería sumar positivo con negativo", () => {
-      const resultado = sumar(5, -3);
-      expect(resultado).to.equal(2);
-      expect(resultado).to.be.a("number");
-    });
-  });
+    it('should fetch a random joke from the API', (done) => {
+        myObserver.next = (data: any) => {
+            try {
+                expect(data).to.have.property('value');
+                expect(data.value).to.be.a('string');
+                done();
+            } catch (error) {                done(error);
+        
+        };
+        myObserver.error = (error: any) => {
+            done(error);
+        };
+  }});
 
-  describe("Resta", () => {
-    it("debería restar dos números", () => {
-      const resultado = restar(5, 3);
-      expect(resultado).to.equal(2);
-    });
 
-    it("debería manejar restas negativas", () => {
-      const resultado = restar(3, 5);
-      expect(resultado).to.equal(-2);
-    });
-  });
+      it('value is not an empty string when status is 200', (done) => {
+        myObserver.next = (data: any) => {
+            try {
+              // check 200 status code
+                expect(data).to.have.property('value');
+                expect(data.value).to.be.a('string').that.is.not.empty;
+                done();
+            } catch (error) {
+                done(error);
+            }
+        };
+        myObserver.error = (error: any) => {
+            done(error);
+        };
+      });
 });
